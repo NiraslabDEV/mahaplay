@@ -2271,3 +2271,288 @@ section#founders h2 {
     display: none;
   }
 }
+
+/* Melhorias para dispositivos móveis - Adicionado para tornar o site mais compacto */
+@media (max-width: 768px) {
+  /* Reduz tamanho de fontes */
+  body {
+    font-size: 14px;
+  }
+
+  h1,
+  h2 {
+    font-size: 1.8rem !important;
+  }
+
+  h3 {
+    font-size: 1.4rem !important;
+  }
+
+  h4 {
+    font-size: 1.2rem !important;
+  }
+
+  p {
+    font-size: 0.9rem !important;
+  }
+
+  /* Reduz padding em containers */
+  .container {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+
+  section {
+    padding-top: 2.5rem !important;
+    padding-bottom: 2.5rem !important;
+  }
+
+  /* Torna os cards menores e mais compactos */
+  .option-card,
+  .frequency-card,
+  .product-card,
+  .team-card,
+  .faq-item,
+  .founder-card,
+  .professor-card,
+  .benefit-card {
+    padding: 0.75rem !important;
+  }
+
+  /* Reduz o padding em elementos do grid */
+  .grid {
+    gap: 0.75rem !important;
+  }
+
+  /* Reduz margens entre elementos */
+  .mb-4 {
+    margin-bottom: 0.5rem !important;
+  }
+
+  .mb-6 {
+    margin-bottom: 0.75rem !important;
+  }
+
+  .mb-8 {
+    margin-bottom: 1rem !important;
+  }
+
+  .mb-12 {
+    margin-bottom: 1.5rem !important;
+  }
+
+  /* Ajusta botões para serem menores */
+  .neon-button,
+  .neon-button-outline,
+  .neon-button-experimental,
+  .neon-button-success {
+    padding: 0.5rem 1rem !important;
+    font-size: 0.9rem !important;
+  }
+
+  /* Reduz o tamanho de ícones */
+  .text-2xl {
+    font-size: 1.25rem !important;
+  }
+
+  .text-3xl {
+    font-size: 1.5rem !important;
+  }
+
+  /* Ajusta o botão flutuante para ser menor */
+  .fixed.bottom-10.right-10 {
+    bottom: 1rem !important;
+    right: 1rem !important;
+  }
+
+  /* Ajustes específicos para seções */
+  .highlight-treino,
+  .highlight-yoga,
+  .highlight-running,
+  .highlight-eventos {
+    padding: 1rem !important;
+  }
+
+  /* Ajustes para o menu mobile */
+  #mobile-menu ul li a {
+    font-size: 1.1rem !important;
+    padding: 0.5rem !important;
+  }
+
+  /* Ajusta o logo para ser menor */
+  .logo-hero {
+    height: 120px !important;
+  }
+
+  /* Reduz o tamanho de imagens */
+  .glow-image img {
+    max-height: 200px !important;
+  }
+
+  /* Ajusta os cards de professores */
+  .professor-image {
+    width: 5rem !important;
+    height: 5rem !important;
+  }
+
+  /* Reduz o espaço entre características dos planos */
+  .grid.grid-cols-2.gap-4 {
+    gap: 0.5rem !important;
+  }
+
+  /* Ajusta os containers de detalhes */
+  .bg-blue-900\/20,
+  .bg-gray-800\/50,
+  .bg-gray-800\/70,
+  .bg-gray-800\/40 {
+    padding: 0.5rem !important;
+  }
+
+  /* Ajustes específicos para a seção de eventos em Santos */
+  #eventos .grid.md\:grid-cols-2.gap-10 {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem !important;
+  }
+
+  #eventos .space-y-6 {
+    margin-top: 1rem;
+  }
+
+  /* Ajusta os quadrados de informações do evento */
+  #eventos .grid.grid-cols-2.gap-4 > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem !important;
+  }
+
+  #eventos .grid.grid-cols-2.gap-4 > div i {
+    font-size: 1.25rem !important;
+    margin-bottom: 0.25rem !important;
+  }
+
+  #eventos .grid.grid-cols-2.gap-4 > div h4 {
+    font-size: 0.9rem !important;
+    margin-bottom: 0.1rem !important;
+  }
+
+  #eventos .grid.grid-cols-2.gap-4 > div p {
+    font-size: 0.8rem !important;
+  }
+
+  /* Ajusta a lista de descrição do evento */
+  #eventos ul.list-disc {
+    margin-left: 1rem !important;
+  }
+
+  #eventos ul.list-disc li {
+    font-size: 0.85rem !important;
+    margin-bottom: 0.25rem;
+  }
+
+  /* Ajusta o modal de aula experimental */
+  #modal-aula-experimental .max-w-md {
+    width: 90% !important;
+    padding: 1rem !important;
+  }
+
+  /* Melhora o espaçamento da navbar */
+  .navbar .container {
+    padding: 0.5rem 0.75rem !important;
+  }
+
+  /* Reduz o tamanho dos badges */
+  .badge {
+    font-size: 0.7rem !important;
+    padding: 0.2rem 0.5rem !important;
+    margin: 0 0.25rem !important;
+  }
+
+  /* Ajusta os cartões de modalidades e preços */
+  .option-modal-card {
+    padding: 0.75rem !important;
+  }
+
+  /* Melhora a legibilidade das informações de benefícios */
+  .benefit-card p {
+    font-size: 0.8rem !important;
+  }
+}
+
+/* Ajustes extras para telas muito pequenas */
+@media (max-width: 480px) {
+  body {
+    font-size: 13px;
+  }
+
+  .container {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+
+  /* Força o layout de coluna única em dispositivos muito pequenos */
+  .grid.md\:grid-cols-2,
+  .grid.md\:grid-cols-3,
+  .grid.md\:grid-cols-4 {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  /* Simplifica layouts complexos */
+  .grid.grid-cols-2 {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  /* Reduz ainda mais o espaço */
+  .py-20 {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+
+  /* Torna o texto menor para caber */
+  .text-xl {
+    font-size: 1rem !important;
+  }
+
+  /* Ajusta ícones para ficarem menores */
+  .icon-neon {
+    width: 30px !important;
+    height: 30px !important;
+  }
+
+  /* Ajustes adicionais para telas muito pequenas */
+  h1.glitch,
+  h2.glitch {
+    font-size: 1.5rem !important;
+  }
+
+  /* Diminui o espaçamento no header */
+  header nav {
+    padding: 0.25rem 0.5rem !important;
+  }
+
+  /* Simplifica o footer para ocupar menos espaço */
+  footer .grid.md\:grid-cols-4 {
+    gap: 1.5rem !important;
+  }
+
+  /* Ajusta os itens do menu mobile para ficarem mais compactos */
+  #mobile-menu ul {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+
+  /* Simplifica os badges */
+  .badge {
+    margin: 0 0.15rem !important;
+    padding: 0.15rem 0.4rem !important;
+    font-size: 0.65rem !important;
+  }
+
+  /* Reduz as animações para economizar recursos */
+  .neon-button::before {
+    display: none !important;
+  }
+}
