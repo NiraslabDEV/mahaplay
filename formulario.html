@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inscrição - MAHA PLAY</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      .form-control {
+        background-color: rgba(26, 26, 32, 0.7);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: #e2e2e2;
+        transition: all 0.3s ease;
+      }
+
+      .form-control:focus {
+        border-color: rgba(255, 255, 255, 0.5);
+        box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2);
+        background-color: rgba(26, 26, 32, 0.9);
+      }
+
+      .form-section {
+        display: none;
+      }
+
+      .form-section.active {
+        display: block;
+        animation: fadeIn 0.5s ease forwards;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Estilo personalizado para cada seção do formulário */
+      .form-section.treino-funcional .form-title {
+        color: var(--color-primary);
+        text-shadow: 0 0 10px rgba(110, 44, 242, 0.5);
+      }
+
+      .form-section.yoga .form-title {
+        color: var(--color-yoga);
+        text-shadow: 0 0 10px rgba(0, 184, 169, 0.5);
+      }
+
+      .form-section.corrida .form-title {
+        color: var(--color-running);
+        text-shadow: 0 0 10px rgba(255, 140, 66, 0.5);
+      }
+
+      .form-section.eventos .form-title {
+        color: var(--color-eventos);
+        text-shadow: 0 0 10px rgba(58, 134, 255, 0.5);
+      }
+
+      /* Melhorias visuais no formulário */
+      input[type="text"],
+      input[type="email"],
+      input[type="tel"],
+      input[type="date"],
+      select,
+      textarea {
+        transition: all 0.3s ease-in-out;
+      }
+
+      input[type="text"]:focus,
+      input[type="email"]:focus,
+      input[type="tel"]:focus,
+      input[type="date"]:focus,
+      select:focus,
+      textarea:focus {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .tab-button {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .tab-button::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: 0.5s;
+      }
+
+      .tab-button:hover::after {
+        left: 100%;
+      }
+
+      .neon-button {
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+      }
+
+      .neon-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Animação para indicar campos obrigatórios */
+      @keyframes pulseRequired {
+        0% {
+          box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+        }
+        70% {
+          box-shadow: 0 0 0 5px rgba(239, 68, 68, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+        }
+      }
+
+      input:required:invalid:focus {
+        border-color: rgba(239, 68, 68, 0.5);
+        animation: pulseRequired 1.5s infinite;
+      }
+
+      /* Destacar a área de indicação */
+      .bg-gray-800\/50 {
+        border-left: 3px solid;
+        transition: all 0.3s ease;
+      }
+
+      .form-section.treino-funcional .bg-gray-800\/50 {
+        border-color: var(--color-primary);
+      }
+
+      .form-section.yoga .bg-gray-800\/50 {
+        border-color: var(--color-yoga);
+      }
+
+      .form-section.corrida .bg-gray-800\/50 {
+        border-color: var(--color-running);
+      }
+
+      .form-section.eventos .bg-gray-800\/50 {
+        border-color: var(--color-eventos);
+      }
+
+      .bg-gray-800\/50:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+    </style>
+  </head>
+  <body class="bg-gray-900 text-gray-100 font-sans">
+    <!-- Header -->
+    <header class="relative">
+      <nav
+        class="container mx-auto py-4 px-6 flex justify-between items-center"
+      >
+        <div class="logo-container">
+          <a href="/" class="neon-logo">
+            <img
+              src="./assets/imgs/logos/logo-mahaplay.png"
+              alt="MAHA PLAY Logo"
+              class="h-12"
+            />
+          </a>
+        </div>
+        <a href="index.html" class="neon-link">
+          <i class="fas fa-arrow-left mr-2"></i> Voltar
+        </a>
+      </nav>
+    </header>
+
+    <!-- Formulário Section -->
+    <section class="py-20 bg-gray-900 min-h-screen">
+      <div class="container mx-auto px-6">
+        <h2
+          class="text-3xl md:text-4xl font-bold mb-12 silver-gradient text-center"
+        >
+          Inscrição MAHA PLAY
+        </h2>
+
+        <!-- Tabs de navegação -->
+        <div class="flex flex-wrap gap-2 justify-center mb-12">
+          <button
+            class="tab-button neon-button px-4 py-2 rounded-full active"
+            data-tab="treino-funcional"
+          >
+            Treino Funcional
+          </button>
+          <button
+            class="tab-button neon-button yoga px-4 py-2 rounded-full"
+            data-tab="yoga"
+          >
+            Yoga
+          </button>
+          <button
+            class="tab-button neon-button running px-4 py-2 rounded-full"
+            data-tab="corrida"
+          >
+            Corrida
+          </button>
+          <button
+            class="tab-button neon-button eventos px-4 py-2 rounded-full"
+            data-tab="eventos"
+          >
+            Eventos
+          </button>
+        </div>
+
+        <!-- Formulário -->
+        <div
+          class="max-w-3xl mx-auto bg-gray-800/30 rounded-xl p-8 backdrop-blur-sm"
+        >
+          <!-- Treino Funcional Form -->
+          <form
+            id="treino-funcional-form"
+            class="form-section treino-funcional active"
+          >
+            <h3
+              class="text-2xl font-semibold mb-6 form-title silver-gradient glow-text"
+            >
+              Inscrição para Treino Funcional
+            </h3>
+
+            <!-- Informações de Preços e Horários Treino Funcional -->
+            <div
+              class="mb-8 bg-gray-800/70 p-5 rounded-lg border-l-4 border-purple-500"
+            >
+              <h4 class="text-xl font-semibold mb-3 text-purple-300">
+                Informações de Horários e Valores
+              </h4>
+
+              <div class="mb-3">
+                <p class="font-medium text-white mb-2">Horários disponíveis:</p>
+                <ul class="list-disc pl-5 text-gray-300 mb-3">
+                  <li>Terças e Quintas: 06:00h, 07:30h, 9:00h e 19:30h</li>
+                  <li>Quartas: 06:00h</li>
+                  <li>Domingos: 08:00h</li>
+                </ul>
+              </div>
+
+              <div class="mb-3">
+                <p class="font-medium text-white mb-2">Planos disponíveis:</p>
+                <ul class="list-disc pl-5 text-gray-300 mb-3">
+                  <li>
+                    <span class="text-purple-300 font-medium"
+                      >4 aulas no mês:</span
+                    >
+                    R$159,00
+                  </li>
+                  <li>
+                    <span class="text-purple-300 font-medium"
+                      >8 aulas no mês:</span
+                    >
+                    R$219,00
+                  </li>
+                  <li>
+                    <span class="text-purple-300 font-medium"
+                      >12 aulas no mês:</span
+                    >
+                    R$269,00
+                  </li>
+                  <li>
+                    <span class="text-purple-300 font-medium"
+                      >16 aulas no mês:</span
+                    >
+                    R$319,00
+                  </li>
+                  <li>
+                    <span class="text-purple-300 font-medium"
+                      >Aula avulsa/experimental:</span
+                    >
+                    R$55,00
+                  </li>
+                </ul>
+              </div>
+
+              <p class="text-gray-300 text-sm mb-2">
+                <i class="fas fa-info-circle text-purple-300 mr-2"></i> Total
+                flexibilidade de dias e horários.
+              </p>
+              <p class="text-gray-300 text-sm mb-2">
+                <i class="fas fa-info-circle text-purple-300 mr-2"></i> Você
+                receberá acesso ao nosso app e em todas as vezes que for
+                treinar, é só fazer o check-in.
+              </p>
+              <p class="text-gray-300 text-sm">
+                <i class="fas fa-info-circle text-purple-300 mr-2"></i> Ao
+                fechar qualquer plano, abatemos o valor pago em sua primeira
+                mensalidade.
+              </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+              <div>
+                <label class="block mb-2 text-sm font-medium"
+                  >Nome Completo</label
+                >
+                <input
+                  type="text"
+                  class="w-full px-4 py-2 rounded-lg form-control"
+                  placeholder="Seu nome completo"
+                  required
+                />
+              </div>
+              <div>
+                <label class="block mb-2 text-sm font-medium">E-mail</label>
+                <input
+                  type="email"
+                  class="w-full px-4 py-2 rounded-lg form-control"
+                  placeholder="Seu e-mail"
+                  required
+                />
+              </div>
+              <div>
+                <label class="block mb-2 text-sm font-medium"
+                  >Telefone/WhatsApp</label
+                >
+                <input
+                  type="tel"
+                  class="w-full px-4 py-2 rounded-lg form-control"
+                  placeholder="(00) 00000-0000"
+                  required
+                />
+              </div>
+              <div>
+                <label class="block mb-2 text-sm font-medium"
+                  >Data de Nascimento</label
+                >
+                <input
+                  type="date"
+                  class="w-full px-4 py-2 rounded-lg form-control"
+                  required
+                />
+              </div>
+              <div>
+                <label class="block mb-2 text-sm font-medium">Instagram</label>
+                <div class="relative">
+                  <span class="absolute left-3 top-2 text-gray-400">@</span>
+                  <input
+                    type="text"
+                    class="w-full px-4 py-2 pl-8 rounded-lg form-control"
+                    placeholder="seu.perfil"
+                  />
+                </div>
+              </div>
+              <div>
+                <label class="block mb-2 text-sm font-medium">Profissão</label>
+                <input
+                  type="text"
+                  class="w-full px-4 py-2 rounded-lg form-control"
+                  placeholder="Sua profissão atual"
+                />
+              </div>
+            </div>
+
+            <div class="mb-6">
+              <label class="block mb-2 text-sm font-medium"
+                >Preferência de Horário</label
+              >
+              <select class="w-full px-4 py-2 rounded-lg form-control">
+                <option value="" disabled selected>Selecione um horário</option>
+                <option value="terca-6h">Terça-feira: 6h00</option>
+                <option value="terca-7h30">Terça-feira: 7h30</option>
+                <option value="terca-9h">Terça-feira: 9h00</option>
+                <option value="terca-19h30">Terça-feira: 19h30</option>
+                <option value="quarta-6h">Quarta-feira: 6h00</option>
+                <option value="quinta-6h">Quinta-feira: 6h00</option>
+                <option value="quinta-7h30">Quinta-feira: 7h30</option>
+                <option value="quinta-9h">Quinta-feira: 9h00</option>
+                <option value="quinta-19h30">Quinta-feira: 19h30</option>
+                <option value="domingo-8h">Domingo: 8h00</option>
+              </select>
+            </div>
+
+            <div class="mb-6">
+              <label class="block mb-2 text-sm font-medium">
+                Indicação para aula experimental
+              </label>
+              <div class="bg-gray-800/50 p-4 rounded-lg mb-3">
+                <p class="text-sm text-gray-300 mb-4">
+                  Conhece alguém que pode se interessar pelo Treino Funcional
+                  MAHA PLAY? Indique um amigo para uma aula experimental
+                  gratuita!
+                </p>
+                <div class="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block mb-2 text-xs font-medium"
+                      >Nome do Amigo</label
+                    >
+                    <input
+                      type="text"
+                      class="w-full px-4 py-2 rounded-lg form-control"
+                      placeholder="Nome completo"
+                    />
+                  </div>
+                  <div>
+                    <label class="block mb-2 text-xs font-medium"
+                      >WhatsApp do Amigo</label
+                    >
+                    <input
+                      type="tel"
+                      class="w-full px-4 py-2 rounded-lg form-control"
+                      placeholder="(00) 00000-0000"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-8">
+              <label class="block mb-2 text-sm font-medium"
+                >Experiência Prévia</label
+              >
+              <textarea
+                class="w-full px-4 py-2 rounded-lg form-control"
+                rows="3"
+                placeholder="Conte-nos sua experiência com treinos funcionais (se houver)"
+              ></textarea>
+            </div>
+
+            <div class="text-center">
+              <button type="submit" class="neon-button px-6 py-3 rounded-full">
+                Enviar Inscrição <i class="fas fa-arrow-right ml-2"></i>
+              </button>
+            </div>
+          </form>
+
+          <!-- Yoga Form -->
+          <form id="yoga-form" class="form-section yoga">
+            <h3
+              class="text-2xl font-semibold mb-6 form-title silver-gradient glow-text"
+            >
+              Inscrição para Yoga
+            </h3>
+
+            <!-- Informações de Preços e Horários Yoga -->
+            <div
+              class="mb-8 bg-gray-800/70 p-5 rounded-lg border-l-4 border-teal-500"
+            >
+              <h4 class="text-xl font-semibold mb-3 text-teal-300">
+                Informações de Horários e Valores
+              </h4>
+
+              <div class="mb-3">
+                <p class="font-medium text-white mb-2">Horários disponíveis:</p>
+                <ul class="list-disc pl-5 text-gray-300 mb-3">
+                  <li>Segundas e Quartas: 07:00h</li>
+                  <li>Sábados: 09:00h</li>
+                </ul>
+              </div>
+
+              <div class="mb-3">
+                <p class="font-medium text-white mb-2">Planos disponíveis:</p>
+                <ul class="list-disc pl-5 text-gray-300 mb-3">
+                  <li>
+                    <span class="text-teal-300 font-medium"
+                      >1x semana ou 4 aulas no mês:</span
+                    >
+                    R$129,00
+                  </li>
+                  <li>
+                    <span class="text-teal-300 font-medium"
+                      >2x semana ou 8 aulas no mês:</span
+                    >
+                    R$195,00
+                  </li>
+                  <li>
+                    <span class="text-teal-300 font-medium"
+                      >3x semana ou 12 aulas no mês:</span
+                    >
+                    R$235,00
+                  </li>
+                  <li>
+                    <span class="text-teal-300 font-medium"
+                      >Aula experimental:</span
+                    >
+                    R$40,00
+                  </li>
+                </ul>
+              </div>
+
+              <p class="text-gray-300 text-sm">
+                <i class="fas fa-info-circle text-teal-300 mr-2"></i> Fechando
+                qualquer plano, o valor da aula experimental será abatido na
+                primeira mensalidade do plano escolhido.
+              </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+              <div>
+                <label class="block mb-2 text-sm font-medium"
+                  >Nome Completo</label
+                >
+                <input
+                  type="text"
+                  class="w-full px-4 py-2 rounded-lg form-control"
+                  placeholder="Seu nome completo"
+                  required
+                />
+              </div>
+              <div>
+                <label class="block mb-2 text-sm font-medium">E-mail</label>
+                <input
+                  type="email"
+                  class="w-full px-4 py-2 rounded-lg form-control"
+                  placeholder="Seu e-mail"
+                  required
+                />
+              </div>
+              <div>
+                <label class="block mb-2 text-sm font-medium"
+                  >Telefone/WhatsApp</label
+                >
+                <input
+                  type="tel"
+                  class="w-full px-4 py-2 rounded-lg form-control"
+                  placeholder="(00) 00000-0000"
+                  required
+                />
+              </div>
+              <div>
+                <label class="block mb-2 text-sm font-medium"
+                  >Data de Nascimento</label
+                >
+                <input
+                  type="date"
+                  class="w-full px-4 py-2 rounded-lg form-control"
+                  required
+                />
+              </div>
+              <div>
+                <label class="block mb-2 text-sm font-medium">Instagram</label>
+                <div class="relative">
+                  <span class="absolute left-3 top-2 text-gray-400">@</span>
+                  <input
+                    type="text"
+                    class="w-full px-4 py-2 pl-8 rounded-lg form-control"
+                    placeholder="seu.perfil"
+                  />
+                </div>
+              </div>
+              <div>
+                <label class="block mb-2 text-sm font-medium">Profissão</label>
+                <input
+                  type="text"
+                  class="w-full px-4 py-2 rounded-lg form-control"
+                  placeholder="Sua profissão atual"
+                />
+              </div>
+            </div>
+
+            <div class="mb-6">
+              <label class="block mb-2 text-sm font-medium"
+                >Preferência de Horário</label
+              >
+              <select class="w-full px-4 py-2 rounded-lg form-control">
+                <option value="" disabled selected>Selecione um horário</option>
+                <option value="segunda-7h">Segunda-feira: 7h00</option>
+                <option value="quarta-7h">Quarta-feira: 7h00</option>
+                <option value="sabado-9h">Sábado: 9h00</option>
+              </select>
+            </div>
+
+            <div class="mb-6">
+              <label class="block mb-2 text-sm font-medium">
+                Indicação para aula experimental
+              </label>
+              <div class="bg-gray-800/50 p-4 rounded-lg mb-3">
+                <p class="text-sm text-gray-300 mb-4">
+                  Conhece alguém que pode se interessar pelo Yoga MAHA PLAY?
+                  Indique um amigo para uma aula experimental gratuita!
+                </p>
+                <div class="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block mb-2 text-xs font-medium"
+                      >Nome do Amigo</label
+                    >
+                    <input
+                      type="text"
+                      class="w-full px-4 py-2 rounded-lg form-control"
+                      placeholder="Nome completo"
+                    />
+                  </div>
+                  <div>
+                    <label class="block mb-2 text-xs font-medium"
+                      >WhatsApp do Amigo</label
+                    >
+                    <input
+                      type="tel"
+                      class="w-full px-4 py-2 rounded-lg form-control"
+                      placeholder="(00) 00000-0000"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-8">
+              <label class="block mb-2 text-sm font-medium"
+                >Experiência Prévia</label
+              >
+              <textarea
+                class="w-full px-4 py-2 rounded-lg form-control"
+                rows="3"
+                placeholder="Conte-nos sua experiência com yoga (se houver)"
+              ></textarea>
+            </div>
+
+            <div class="text-center">
+              <button
+                type="submit"
+                class="neon-button yoga px-6 py-3 rounded-full"
+              >
+                Enviar Inscrição <i class="fas fa-arrow-right ml-2"></i>
+              </button>
+            </div>
+          </form>
+
+          <!-- Corrida Form -->
+          <form id="corrida-form" class="form-section corrida">
+            <h3
+              class="text-2xl font-semibold mb-6 form-title silver-gradient glow-text"
+            >
+              Inscrição para Assessoria de Corrida
+            </h3>
+
+            <!-- Informações de Preços e Horários Corrida -->
+            <div
+              class="mb-8 bg-gray-800/70 p-5 rounded-lg border-l-4 border-orange-500"
+            >
+              <h4 class="text-xl font-semibold mb-3 text-orange-300">
+                Informações de Horários e Valores
+              </h4>
+
+              <div class="mb-3">
+                <p class="font-medium text-white mb-2">Horários disponíveis:</p>
+                <ul class="list-disc pl-5 text-gray-300 mb-3">
+                  <li>Sextas-feiras: 06:00h</li>
+                </ul>
+              </div>
+
+              <div class="mb-3">
+                <p class="font-medium text-white mb-2">Plano disponível:</p>
+                <ul class="list-disc pl-5 text-gray-300 mb-3">
+                  <li>
+                    <span class="text-orange-300 font-medium"
+                      >Mensalidade:</span
+                    >
+                    R$200,00
+                  </li>
+                </ul>
+              </div>
+
+              <p class="text-gray-300 text-sm mb-2">
+                <i class="fas fa-info-circle text-orange-300 mr-2"></i> Cada
+                aluno terá acesso à sua planilha, elaborada de acordo com o seu
+                perfil.
+              </p>
+              <p class="text-gray-300 text-sm">
+                <i class="fas fa-info-circle text-orange-300 mr-2"></i> Nossos
+                professores estarão sempre à disposição para ajudar você.
+              </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+              <div>
+                <label class="block mb-2 text-sm font-medium"
+                  >Nome Completo</label
+                >
+                <input
+                  type="text"
+                  class="w-full px-4 py-2 rounded-lg form-control"
+                  placeholder="Seu nome completo"
+                  required
+                />
+              </div>
+              <div>
+                <label class="block mb-2 text-sm font-medium">E-mail</label>
+                <input
+                  type="email"
+                  class="w-full px-4 py-2 rounded-lg form-control"
+                  placeholder="Seu e-mail"
+                  required
+                />
+              </div>
+              <div>
+                <label class="block mb-2 text-sm font-medium"
+                  >Telefone/WhatsApp</label
+                >
+                <input
+                  type="tel"
+                  class="w-full px-4 py-2 rounded-lg form-control"
+                  placeholder="(00) 00000-0000"
+                  required
+                />
+              </div>
+              <div>
+                <label class="block mb-2 text-sm font-medium"
+                  >Data de Nascimento</label
+                >
+                <input
+                  type="date"
+                  class="w-full px-4 py-2 rounded-lg form-control"
+                  required
+                />
+              </div>
+              <div>
+                <label class="block mb-2 text-sm font-medium">Instagram</label>
+                <div class="relative">
+                  <span class="absolute left-3 top-2 text-gray-400">@</span>
+                  <input
+                    type="text"
+                    class="w-full px-4 py-2 pl-8 rounded-lg form-control"
+                    placeholder="seu.perfil"
+                  />
+                </div>
+              </div>
+              <div>
+                <label class="block mb-2 text-sm font-medium">Profissão</label>
+                <input
+                  type="text"
+                  class="w-full px-4 py-2 rounded-lg form-control"
+                  placeholder="Sua profissão atual"
+                />
+              </div>
+            </div>
+
+            <div class="mb-6">
+              <label class="block mb-2 text-sm font-medium">Horário</label>
+              <select class="w-full px-4 py-2 rounded-lg form-control">
+                <option value="" disabled selected>Selecione um horário</option>
+                <option value="sexta-6h">Sexta-feira: 6h00</option>
+              </select>
+              <p class="text-xs text-gray-400 mt-1">
+                As aulas presenciais acontecem todas às sextas-feiras, às 6h no
+                Parque Ibirapuera
+              </p>
+            </div>
+
+            <div class="mb-6">
+              <label class="block mb-2 text-sm font-medium"
+                >Nível de Corrida</label
+              >
+              <select class="w-full px-4 py-2 rounded-lg form-control">
+                <option value="" disabled selected>Selecione seu nível</option>
+                <option value="iniciante">
+                  Iniciante - Nunca corri ou corro pouco
+                </option>
+                <option value="intermediario">
+                  Intermediário - Corro regularmente
+                </option>
+                <option value="avancado">
+                  Avançado - Já participei de provas
+                </option>
+              </select>
+            </div>
+
+            <div class="mb-6">
+              <label class="block mb-2 text-sm font-medium"
+                >Objetivos com a Corrida</label
+              >
+              <div class="grid grid-cols-2 gap-4">
+                <div class="flex items-center">
+                  <input type="checkbox" class="mr-2" />
+                  <label>Melhorar condicionamento</label>
+                </div>
+                <div class="flex items-center">
+                  <input type="checkbox" class="mr-2" />
+                  <label>Perder peso</label>
+                </div>
+                <div class="flex items-center">
+                  <input type="checkbox" class="mr-2" />
+                  <label>Participar de provas</label>
+                </div>
+                <div class="flex items-center">
+                  <input type="checkbox" class="mr-2" />
+                  <label>Melhorar saúde</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-6">
+              <label class="block mb-2 text-sm font-medium">
+                Indicação para aula experimental
+              </label>
+              <div class="bg-gray-800/50 p-4 rounded-lg mb-3">
+                <p class="text-sm text-gray-300 mb-4">
+                  Conhece alguém que pode se interessar pela Assessoria de
+                  Corrida MAHA PLAY? Indique um amigo para uma aula experimental
+                  gratuita!
+                </p>
+                <div class="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block mb-2 text-xs font-medium"
+                      >Nome do Amigo</label
+                    >
+                    <input
+                      type="text"
+                      class="w-full px-4 py-2 rounded-lg form-control"
+                      placeholder="Nome completo"
+                    />
+                  </div>
+                  <div>
+                    <label class="block mb-2 text-xs font-medium"
+                      >WhatsApp do Amigo</label
+                    >
+                    <input
+                      type="tel"
+                      class="w-full px-4 py-2 rounded-lg form-control"
+                      placeholder="(00) 00000-0000"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-8">
+              <label class="block mb-2 text-sm font-medium"
+                >Experiência com Corrida</label
+              >
+              <textarea
+                class="w-full px-4 py-2 rounded-lg form-control"
+                rows="3"
+                placeholder="Descreva sua experiência com corrida (frequência, distâncias, ritmo)"
+              ></textarea>
+            </div>
+
+            <div class="text-center">
+              <button
+                type="submit"
+                class="neon-button running px-6 py-3 rounded-full"
+              >
+                Enviar Inscrição <i class="fas fa-arrow-right ml-2"></i>
+              </button>
+            </div>
+          </form>
+
+          <!-- Eventos Form -->
+          <form id="eventos-form" class="form-section eventos">
+            <h3
+              class="text-2xl font-semibold mb-6 form-title silver-gradient glow-text"
+            >
+              Inscrição para Aulão em Santos
+            </h3>
+
+            <!-- Informações de Preços e Horários Eventos -->
+            <div
+              class="mb-8 bg-gray-800/70 p-5 rounded-lg border-l-4 border-blue-500"
+            >
+              <h4 class="text-xl font-semibold mb-3 text-blue-300">
+                Informações de Eventos Especiais
+              </h4>
+
+              <div class="mb-3">
+                <p class="font-medium text-white mb-2">Evento atual:</p>
+                <ul class="list-disc pl-5 text-gray-300 mb-3">
+                  <li>Aulão em Santos - 12 de Abril</li>
+                </ul>
+              </div>
+
+              <p class="text-gray-300 text-sm mb-2">
+                <i class="fas fa-info-circle text-blue-300 mr-2"></i> Cada
+                evento tem seu preço e particularidades específicas.
+              </p>
+              <p class="text-gray-300 text-sm">
+                <i class="fas fa-info-circle text-blue-300 mr-2"></i> Entre em
+                contato para obter mais informações sobre o evento atual e
+                futuros eventos.
+              </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+              <div>
+                <label class="block mb-2 text-sm font-medium"
+                  >Nome Completo</label
+                >
+                <input
+                  type="text"
+                  class="w-full px-4 py-2 rounded-lg form-control"
+                  placeholder="Seu nome completo"
+                  required
+                />
+              </div>
+              <div>
+                <label class="block mb-2 text-sm font-medium">E-mail</label>
+                <input
+                  type="email"
+                  class="w-full px-4 py-2 rounded-lg form-control"
+                  placeholder="Seu e-mail"
+                  required
+                />
+              </div>
+              <div>
+                <label class="block mb-2 text-sm font-medium"
+                  >Telefone/WhatsApp</label
+                >
+                <input
+                  type="tel"
+                  class="w-full px-4 py-2 rounded-lg form-control"
+                  placeholder="(00) 00000-0000"
+                  required
+                />
+              </div>
+              <div>
+                <label class="block mb-2 text-sm font-medium"
+                  >Data de Nascimento</label
+                >
+                <input
+                  type="date"
+                  class="w-full px-4 py-2 rounded-lg form-control"
+                  required
+                />
+              </div>
+              <div>
+                <label class="block mb-2 text-sm font-medium">Instagram</label>
+                <div class="relative">
+                  <span class="absolute left-3 top-2 text-gray-400">@</span>
+                  <input
+                    type="text"
+                    class="w-full px-4 py-2 pl-8 rounded-lg form-control"
+                    placeholder="seu.perfil"
+                  />
+                </div>
+              </div>
+              <div>
+                <label class="block mb-2 text-sm font-medium">Profissão</label>
+                <input
+                  type="text"
+                  class="w-full px-4 py-2 rounded-lg form-control"
+                  placeholder="Sua profissão atual"
+                />
+              </div>
+            </div>
+
+            <div class="mb-6">
+              <label class="block mb-2 text-sm font-medium">Evento</label>
+              <select class="w-full px-4 py-2 rounded-lg form-control">
+                <option value="aulao-santos" selected>
+                  Aulão em Santos - 12 de Abril
+                </option>
+              </select>
+            </div>
+
+            <div class="mb-6">
+              <label class="block mb-2 text-sm font-medium"
+                >Como soube do evento?</label
+              >
+              <select class="w-full px-4 py-2 rounded-lg form-control">
+                <option value="" disabled selected>Selecione uma opção</option>
+                <option value="instagram">Instagram</option>
+                <option value="amigos">Amigos</option>
+                <option value="site">Site</option>
+                <option value="outros">Outros</option>
+              </select>
+            </div>
+
+            <div class="mb-6">
+              <label class="block mb-2 text-sm font-medium">
+                Indicação para aula experimental
+              </label>
+              <div class="bg-gray-800/50 p-4 rounded-lg mb-3">
+                <p class="text-sm text-gray-300 mb-4">
+                  Conhece alguém que pode se interessar pelos eventos MAHA PLAY?
+                  Indique um amigo para uma aula experimental gratuita!
+                </p>
+                <div class="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block mb-2 text-xs font-medium"
+                      >Nome do Amigo</label
+                    >
+                    <input
+                      type="text"
+                      class="w-full px-4 py-2 rounded-lg form-control"
+                      placeholder="Nome completo"
+                    />
+                  </div>
+                  <div>
+                    <label class="block mb-2 text-xs font-medium"
+                      >WhatsApp do Amigo</label
+                    >
+                    <input
+                      type="tel"
+                      class="w-full px-4 py-2 rounded-lg form-control"
+                      placeholder="(00) 00000-0000"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-8">
+              <label class="block mb-2 text-sm font-medium"
+                >Alguma consideração especial?</label
+              >
+              <textarea
+                class="w-full px-4 py-2 rounded-lg form-control"
+                rows="3"
+                placeholder="Qualquer informação adicional que gostaria de nos passar"
+              ></textarea>
+            </div>
+
+            <div class="text-center">
+              <button
+                type="submit"
+                class="neon-button eventos px-6 py-3 rounded-full"
+              >
+                Enviar Inscrição <i class="fas fa-arrow-right ml-2"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 bg-gray-900 border-t border-gray-800">
+      <div class="container mx-auto px-6 text-center">
+        <p class="text-gray-500 text-sm">
+          © 2024 MAHA PLAY. Todos os direitos reservados.
+        </p>
+        <p class="text-gray-600 text-xs mt-2">
+          Desenvolvido por
+          <a
+            href="https://leapfrogtech.netlify.app/"
+            target="_blank"
+            class="hover:text-white transition-colors"
+            >LeapFrogTech</a
+          >
+          - Transformações digitais em tempo recorde
+        </p>
+      </div>
+    </footer>
+
+    <script src="./js/main.js"></script>
+    <script>
+      // Código JavaScript para gerenciar as guias do formulário
+      document.addEventListener("DOMContentLoaded", function () {
+        const tabButtons = document.querySelectorAll(".tab-button");
+        const formSections = document.querySelectorAll(".form-section");
+
+        tabButtons.forEach((button) => {
+          button.addEventListener("click", function () {
+            // Remover classe active de todos os botões
+            tabButtons.forEach((btn) => btn.classList.remove("active"));
+            // Adicionar classe active ao botão clicado
+            this.classList.add("active");
+
+            // Obter o ID da seção do formulário
+            const tabId = this.getAttribute("data-tab");
+
+            // Esconder todas as seções
+            formSections.forEach((section) =>
+              section.classList.remove("active")
+            );
+
+            // Mostrar a seção selecionada
+            document.getElementById(tabId + "-form").classList.add("active");
+          });
+        });
+
+        // Processamento do formulário
+        const forms = document.querySelectorAll("form");
+        forms.forEach((form) => {
+          form.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            // Aqui você adicionaria o código para enviar os dados do formulário
+            // Para efeito de demonstração, apenas mostraremos uma mensagem de sucesso
+            alert(
+              "Inscrição enviada com sucesso! Entraremos em contato em breve."
+            );
+            form.reset();
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

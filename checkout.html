@@ -1,0 +1,1423 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout - MAHA PLAY</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      /* Reset e Estilos Gerais */
+      body {
+        background-color: #121212;
+        background-image: radial-gradient(
+            circle at 25% 15%,
+            rgba(128, 0, 128, 0.15) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 75% 85%,
+            rgba(0, 128, 128, 0.15) 0%,
+            transparent 50%
+          );
+        color: #fff;
+        font-family: "Montserrat", sans-serif;
+        line-height: 1.6;
+        min-height: 100vh;
+        overflow-x: hidden;
+      }
+
+      /* Layout e Contêineres */
+      .checkout-wrapper {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        padding: 2rem 1rem;
+      }
+
+      .checkout-card {
+        background: rgba(30, 30, 40, 0.8);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      }
+
+      .silver-gradient {
+        background: linear-gradient(to right, #fff, #bebebe);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      /* Etapas do Checkout */
+      .step {
+        display: none;
+        animation: fadeIn 0.5s ease-in-out;
+      }
+
+      .step.active {
+        display: block;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Barra de Progresso */
+      .progress-bar {
+        height: 100%;
+        width: 0;
+        transition: width 0.5s ease;
+        box-shadow: 0 0 10px rgba(128, 203, 196, 0.5);
+      }
+
+      /* Cards de Opções */
+      .option-card {
+        position: relative;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 1px solid transparent;
+        overflow: hidden;
+      }
+
+      .option-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        border-color: rgba(255, 255, 255, 0.1);
+      }
+
+      .option-card.active-option {
+        border: 1px solid #bb86fc;
+        box-shadow: 0 0 15px rgba(187, 134, 252, 0.3);
+      }
+
+      .option-card.yoga.active-option {
+        border: 1px solid #03dac6;
+        box-shadow: 0 0 15px rgba(3, 218, 198, 0.3);
+      }
+
+      .option-card.running.active-option {
+        border: 1px solid #ff8a00;
+        box-shadow: 0 0 15px rgba(255, 138, 0, 0.3);
+      }
+
+      /* Cards de Frequência */
+      .frequency-card {
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .frequency-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .frequency-card.active-frequency {
+        box-shadow: 0 0 15px rgba(187, 134, 252, 0.3);
+      }
+
+      /* Botões */
+      .neon-button {
+        background: linear-gradient(45deg, #bb86fc, #3700b3);
+        color: white;
+        border: none;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+      }
+
+      .neon-button:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        background: #555;
+      }
+
+      .neon-button:not(:disabled):hover {
+        box-shadow: 0 0 15px rgba(187, 134, 252, 0.5);
+        transform: translateY(-2px);
+      }
+
+      .neon-button-success {
+        background: linear-gradient(45deg, #00cfb4, #007a68);
+        color: white;
+        border: none;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+      }
+
+      .neon-button-success:hover {
+        box-shadow: 0 0 15px rgba(0, 207, 180, 0.5);
+        transform: translateY(-2px);
+      }
+
+      /* Opções de Pagamento */
+      .payment-option {
+        transition: all 0.3s ease;
+      }
+
+      .payment-option.active {
+        border-color: #03dac6;
+      }
+
+      /* Animações */
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      .pulse-animation {
+        animation: pulse 2s infinite ease-in-out;
+      }
+
+      /* Responsividade */
+      @media (max-width: 768px) {
+        .checkout-card {
+          padding: 1.5rem;
+        }
+      }
+
+      /* Estilo adicional para a seção de frequência */
+      .frequency-options {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        margin: 30px 0;
+      }
+
+      .frequency-option {
+        position: relative;
+        width: 280px;
+        padding: 25px;
+        border-radius: 10px;
+        background: rgba(0, 0, 0, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        text-align: center;
+        transition: all 0.3s ease;
+      }
+
+      .frequency-option:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      }
+
+      .frequency-option h4 {
+        margin-top: 0;
+        font-size: 1.5rem;
+        color: #fff;
+      }
+
+      .frequency-option .price {
+        font-weight: bold;
+        color: #f80;
+        margin: 10px 0;
+      }
+
+      .frequency-option .description {
+        color: #ccc;
+        margin-bottom: 20px;
+      }
+
+      .frequency-option input[type="radio"] {
+        display: none;
+      }
+
+      .frequency-option label {
+        display: inline-block;
+        padding: 8px 15px;
+        background: transparent;
+        border: 1px solid #f80;
+        color: #f80;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .frequency-option label:hover {
+        background: rgba(255, 136, 0, 0.2);
+      }
+
+      .frequency-option input[type="radio"]:checked + label {
+        background: #f80;
+        color: #000;
+      }
+
+      /* Efeito LED para opção recomendada */
+      .recommended {
+        position: relative;
+        border: 1px solid #f80;
+        overflow: hidden;
+      }
+
+      .recommended-tag {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: #f80;
+        color: #000;
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: bold;
+      }
+
+      .led-effect {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 10px;
+        box-shadow: 0 0 10px #f80, 0 0 20px #f80,
+          inset 0 0 10px rgba(255, 136, 0, 0.5);
+        opacity: 0.5;
+        pointer-events: none;
+        animation: pulseLED 2s infinite alternate;
+      }
+
+      @keyframes pulseLED {
+        from {
+          opacity: 0.3;
+          box-shadow: 0 0 5px #f80, 0 0 10px #f80,
+            inset 0 0 5px rgba(255, 136, 0, 0.3);
+        }
+        to {
+          opacity: 0.7;
+          box-shadow: 0 0 15px #f80, 0 0 30px #f80,
+            inset 0 0 15px rgba(255, 136, 0, 0.7);
+        }
+      }
+
+      /* Estilo para a mensagem de finalização */
+      .join-message {
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: 10px;
+        padding: 20px;
+        margin: 30px 0;
+        text-align: center;
+        border: 1px solid rgba(255, 136, 0, 0.3);
+      }
+
+      .join-message h4 {
+        color: #f80;
+        margin-top: 0;
+      }
+
+      .join-message p {
+        color: #fff;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body class="text-gray-100 font-sans">
+    <!-- Header -->
+    <header class="relative">
+      <nav
+        class="container mx-auto py-4 px-6 flex justify-between items-center"
+      >
+        <div class="logo-container">
+          <a href="/" class="neon-logo">
+            <img
+              src="./assets/imgs/logos/logo-mahaplay.png"
+              alt="MAHA PLAY Logo"
+              class="h-12"
+            />
+          </a>
+        </div>
+        <a href="index.html" class="neon-link">
+          <i class="fas fa-arrow-left mr-2"></i> Voltar
+        </a>
+      </nav>
+    </header>
+
+    <!-- Checkout Section -->
+    <section class="py-16 min-h-screen">
+      <div class="container mx-auto px-6">
+        <h2
+          class="text-3xl md:text-4xl font-bold mb-4 silver-gradient text-center"
+        >
+          Assine MAHA PLAY
+        </h2>
+        <p class="text-gray-400 text-center mb-12">
+          Selecione seu plano ideal e comece sua jornada de transformação
+        </p>
+
+        <!-- Progress Bar -->
+        <div
+          class="w-full max-w-3xl mx-auto mb-10 bg-gray-800 rounded-full h-2 overflow-hidden"
+        >
+          <div
+            id="progress-bar"
+            class="progress-bar bg-gradient-to-r from-purple-500 to-teal-400 w-1/5"
+          ></div>
+        </div>
+
+        <!-- Checkout Form -->
+        <div class="max-w-3xl mx-auto checkout-card rounded-xl p-8">
+          <form id="checkout-form">
+            <!-- Step 1: Escolha da Modalidade -->
+            <div id="step-1" class="step active">
+              <h3 class="text-2xl font-semibold mb-6 silver-gradient">
+                Escolha sua modalidade
+              </h3>
+              <p class="text-gray-300 mb-6">
+                Clique em uma das opções abaixo para escolher a modalidade que
+                mais combina com você:
+              </p>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div
+                  class="option-card bg-gray-800/50 p-5 rounded-xl hover:shadow-lg transition-all duration-300"
+                  data-value="funcional"
+                >
+                  <div class="text-purple-400 text-3xl mb-3">
+                    <i class="fas fa-dumbbell"></i>
+                  </div>
+                  <h4 class="text-xl font-semibold mb-2">Treino Funcional</h4>
+                  <p class="text-gray-400 text-sm">
+                    Treinos dinâmicos que desafiam seu corpo por completo,
+                    melhorando força e condicionamento.
+                  </p>
+                </div>
+
+                <div
+                  class="option-card bg-gray-800/50 p-5 rounded-xl yoga hover:shadow-lg transition-all duration-300"
+                  data-value="yoga"
+                >
+                  <div class="text-teal-400 text-3xl mb-3">
+                    <i class="fas fa-spa"></i>
+                  </div>
+                  <h4 class="text-xl font-semibold mb-2">Yoga</h4>
+                  <p class="text-gray-400 text-sm">
+                    Conecte corpo e mente através das práticas milenares do
+                    yoga, adaptadas para o ritmo moderno.
+                  </p>
+                </div>
+
+                <div
+                  class="option-card bg-gray-800/50 p-5 rounded-xl yoga hover:shadow-lg transition-all duration-300"
+                  data-value="yoga-maha"
+                >
+                  <div class="text-teal-400 text-3xl mb-3">
+                    <i class="fas fa-om"></i>
+                  </div>
+                  <h4 class="text-xl font-semibold mb-2">Yoga Maha</h4>
+                  <p class="text-gray-400 text-sm">
+                    Uma experiência yoga exclusiva com técnicas avançadas e
+                    abordagem personalizada.
+                  </p>
+                </div>
+
+                <div
+                  class="option-card bg-gray-800/50 p-5 rounded-xl running hover:shadow-lg transition-all duration-300"
+                  data-value="running"
+                >
+                  <div class="text-orange-400 text-3xl mb-3">
+                    <i class="fas fa-running"></i>
+                  </div>
+                  <h4 class="text-xl font-semibold mb-2">
+                    Assessoria de Corrida
+                  </h4>
+                  <p class="text-gray-400 text-sm">
+                    Plano de treino personalizado e acompanhamento para melhorar
+                    sua performance.
+                  </p>
+                </div>
+
+                <div
+                  class="option-card bg-gray-800/50 p-5 rounded-xl col-span-1 md:col-span-2 hover:shadow-lg transition-all duration-300"
+                  data-value="maha-experience"
+                >
+                  <div
+                    class="absolute -top-2 -right-2 bg-gradient-to-r from-purple-600 to-blue-500 text-white px-3 py-1 rounded-full text-xs font-bold"
+                  >
+                    Completo
+                  </div>
+                  <div class="text-blue-400 text-3xl mb-3">
+                    <i class="fas fa-crown"></i>
+                  </div>
+                  <h4 class="text-xl font-semibold mb-2">Maha Experience</h4>
+                  <p class="text-gray-400 text-sm">
+                    A experiência completa: acesso a todas as modalidades com
+                    benefícios exclusivos para membros premium.
+                  </p>
+                </div>
+              </div>
+
+              <div class="text-center">
+                <button
+                  type="button"
+                  id="step-1-btn"
+                  class="neon-button px-6 py-3 rounded-full"
+                  disabled
+                >
+                  Continuar <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Step 2: Benefícios da Modalidade -->
+            <div id="step-2" class="step">
+              <h3
+                class="text-2xl font-semibold mb-6 silver-gradient"
+                id="benefits-title"
+              >
+                Benefícios do Treino Funcional
+              </h3>
+
+              <div id="benefits-content" class="mb-8">
+                <!-- Conteúdo dinâmico a ser preenchido via JavaScript -->
+              </div>
+
+              <div class="flex justify-between">
+                <button
+                  type="button"
+                  class="back-btn px-6 py-3 rounded-full border border-gray-600 hover:border-white"
+                >
+                  <i class="fas fa-arrow-left mr-2"></i> Voltar
+                </button>
+                <button
+                  type="button"
+                  id="step-2-btn"
+                  class="neon-button px-6 py-3 rounded-full"
+                >
+                  Continuar <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Step 3: Comunidade MAHA -->
+            <div id="step-3" class="step">
+              <h3 class="text-2xl font-semibold mb-6 silver-gradient">
+                A Comunidade MAHA PLAY
+              </h3>
+
+              <div class="bg-gray-800/70 p-6 rounded-xl mb-8">
+                <div class="flex items-center justify-center mb-6">
+                  <div
+                    class="w-24 h-24 bg-gradient-to-r from-purple-500 to-teal-400 rounded-full flex items-center justify-center"
+                  >
+                    <i class="fas fa-users text-4xl text-white"></i>
+                  </div>
+                </div>
+
+                <h4 class="text-xl font-semibold mb-4 text-center">
+                  Faça Parte do Nosso Círculo
+                </h4>
+
+                <p class="text-gray-300 mb-4 text-center">
+                  Além dos treinos, você terá acesso a uma rede exclusiva de
+                  pessoas engajadas, eventos VIP e oportunidades de networking
+                  profissional.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                  <div class="bg-gray-700/50 p-4 rounded-lg text-center">
+                    <i
+                      class="fas fa-calendar-alt text-purple-400 text-2xl mb-2"
+                    ></i>
+                    <h5 class="font-semibold mb-1">Eventos Exclusivos</h5>
+                    <p class="text-sm text-gray-300">
+                      Acesso a eventos privados e encontros da comunidade
+                    </p>
+                  </div>
+
+                  <div class="bg-gray-700/50 p-4 rounded-lg text-center">
+                    <i class="fas fa-handshake text-teal-400 text-2xl mb-2"></i>
+                    <h5 class="font-semibold mb-1">Networking Premium</h5>
+                    <p class="text-sm text-gray-300">
+                      Conexões com profissionais e empreendedores de sucesso
+                    </p>
+                  </div>
+
+                  <div class="bg-gray-700/50 p-4 rounded-lg text-center">
+                    <i
+                      class="fas fa-percentage text-blue-400 text-2xl mb-2"
+                    ></i>
+                    <h5 class="font-semibold mb-1">Descontos Especiais</h5>
+                    <p class="text-sm text-gray-300">
+                      Vantagens em marcas parceiras e eventos
+                    </p>
+                  </div>
+                </div>
+
+                <div class="border-t border-gray-700 pt-4 text-center">
+                  <p class="text-sm italic text-gray-400">
+                    "A comunidade MAHA é onde negócios acontecem, amizades são
+                    formadas e vidas são transformadas."
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex justify-between">
+                <button
+                  type="button"
+                  class="back-btn px-6 py-3 rounded-full border border-gray-600 hover:border-white"
+                >
+                  <i class="fas fa-arrow-left mr-2"></i> Voltar
+                </button>
+                <button
+                  type="button"
+                  id="step-3-btn"
+                  class="neon-button px-6 py-3 rounded-full"
+                >
+                  Continuar <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Step 4: Escolha da Frequência (antigo Step 2) -->
+            <div id="step-4" class="step">
+              <h3 class="text-2xl font-semibold mb-6 silver-gradient">
+                Escolha sua frequência
+              </h3>
+              <p class="text-gray-300 mb-6">
+                Qual plano se encaixa melhor na sua rotina?
+              </p>
+
+              <div class="frequency-options" id="frequency-options">
+                <div class="frequency-option" id="anual">
+                  <h4>Anual</h4>
+                  <p class="price">
+                    Desconto de 20% em relação ao plano mensal
+                  </p>
+                  <p class="description">
+                    Ideal para quem deseja se comprometer com o progresso a
+                    longo prazo.
+                  </p>
+                  <input
+                    type="radio"
+                    name="frequency"
+                    value="annual"
+                    id="annual-frequency"
+                  />
+                  <label for="annual-frequency">Selecionar Anual</label>
+                </div>
+
+                <div class="frequency-option recommended" id="mensal">
+                  <div class="led-effect"></div>
+                  <span class="recommended-tag">Mais popular</span>
+                  <h4>Mensal</h4>
+                  <p class="price">Pagamento recorrente mensal</p>
+                  <p class="description">
+                    Flexibilidade para gerenciar seu orçamento mês a mês.
+                  </p>
+                  <input
+                    type="radio"
+                    name="frequency"
+                    value="monthly"
+                    id="monthly-frequency"
+                    checked
+                  />
+                  <label for="monthly-frequency">Selecionar Mensal</label>
+                </div>
+
+                <div class="frequency-option" id="trimestral">
+                  <h4>Trimestral</h4>
+                  <p class="price">
+                    Desconto de 10% em relação ao plano mensal
+                  </p>
+                  <p class="description">
+                    Equilíbrio entre economia e compromisso de médio prazo.
+                  </p>
+                  <input
+                    type="radio"
+                    name="frequency"
+                    value="quarterly"
+                    id="quarterly-frequency"
+                  />
+                  <label for="quarterly-frequency">Selecionar Trimestral</label>
+                </div>
+              </div>
+
+              <div class="flex justify-between">
+                <button
+                  type="button"
+                  class="back-btn px-6 py-3 rounded-full border border-gray-600 hover:border-white"
+                >
+                  <i class="fas fa-arrow-left mr-2"></i> Voltar
+                </button>
+                <button
+                  type="button"
+                  id="step-4-btn"
+                  class="neon-button px-6 py-3 rounded-full"
+                >
+                  Continuar <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Step 5: Resumo e Confirmação (antigo Step 3) -->
+            <div id="step-5" class="step">
+              <h3 class="text-2xl font-semibold mb-6 silver-gradient">
+                Quase lá! Revise seu plano
+              </h3>
+
+              <div class="bg-gray-800/50 p-6 rounded-xl mb-8">
+                <div class="flex items-center mb-8">
+                  <div
+                    id="plan-icon"
+                    class="w-12 h-12 bg-purple-500/20 rounded-full flex items-center justify-center text-purple-400 mr-4"
+                  >
+                    <i class="fas fa-dumbbell text-xl"></i>
+                  </div>
+                  <div>
+                    <h4 id="plan-title" class="text-xl font-semibold">
+                      Treino Funcional
+                    </h4>
+                    <p id="plan-frequency" class="text-gray-400">
+                      2x por semana
+                    </p>
+                  </div>
+                </div>
+
+                <div class="border-t border-b border-gray-700 py-4 mb-4">
+                  <div class="flex justify-between mb-2">
+                    <span class="text-gray-400">Plano mensal</span>
+                    <span id="plan-price" class="font-semibold">R$ 299,00</span>
+                  </div>
+                  <div class="flex justify-between text-sm">
+                    <span class="text-gray-400">Valor por aula</span>
+                    <span id="class-price" class="text-gray-300">R$ 37,37</span>
+                  </div>
+                </div>
+
+                <div class="mb-6">
+                  <h5 class="text-sm uppercase text-gray-500 mb-2">Inclui</h5>
+                  <ul id="plan-includes" class="text-sm text-gray-300">
+                    <li class="flex items-center mb-2">
+                      <i class="fas fa-check text-green-500 mr-2"></i>
+                      <span>Treinos personalizados</span>
+                    </li>
+                    <li class="flex items-center mb-2">
+                      <i class="fas fa-check text-green-500 mr-2"></i>
+                      <span>Acesso ao grupo exclusivo</span>
+                    </li>
+                    <li class="flex items-center mb-2">
+                      <i class="fas fa-check text-green-500 mr-2"></i>
+                      <span>Suporte via WhatsApp</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="join-message">
+                  <h4>
+                    Você está prestes a se tornar parte da comunidade MAHA PLAY!
+                  </h4>
+                  <p>
+                    Prepare-se para transformar sua rotina, alcançar seus
+                    objetivos e conectar-se com pessoas incríveis.
+                  </p>
+                  <p>
+                    Clique no botão abaixo para finalizar sua inscrição e
+                    iniciar sua jornada conosco!
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex justify-between">
+                <button
+                  type="button"
+                  class="back-btn px-6 py-3 rounded-full border border-gray-600 hover:border-white"
+                >
+                  <i class="fas fa-arrow-left mr-2"></i> Voltar
+                </button>
+                <button
+                  id="checkout-button"
+                  class="neon-button-success px-6 py-3 rounded-full"
+                >
+                  Finalizar inscrição <i class="fas fa-check ml-2"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Hidden fields for tracking selections -->
+            <input
+              type="hidden"
+              id="selected-modality"
+              name="modality"
+              value=""
+            />
+            <input
+              type="hidden"
+              id="selected-frequency"
+              name="frequency"
+              value=""
+            />
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 border-t border-gray-800">
+      <div class="container mx-auto px-6 text-center">
+        <p class="text-gray-500 text-sm">
+          © 2024 MAHA PLAY. Todos os direitos reservados.
+        </p>
+        <p class="text-gray-600 text-xs mt-2">
+          Desenvolvido por
+          <a
+            href="https://leapfrogtech.netlify.app/"
+            target="_blank"
+            class="hover:text-white transition-colors"
+            >LeapFrogTech</a
+          >
+          - Transformações digitais em tempo recorde
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Processamento de parâmetros da URL
+        function getUrlParameter(name) {
+          name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+          const regex = new RegExp("[\\?&]" + name + "=([^&#]*)");
+          const results = regex.exec(location.search);
+          return results === null
+            ? ""
+            : decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
+
+        // Verificar se há uma modalidade selecionada na URL
+        const preSelectedModality = getUrlParameter("modality");
+        const preSelectedProduct = getUrlParameter("product");
+        const preSelectedEvent = getUrlParameter("event");
+
+        // Se houver um produto, podemos redirecionar para a seção de produtos (implementação futura)
+        // if (preSelectedProduct) {
+        //   // Implementar lógica para mostrar produtos
+        // }
+
+        // Se houver um evento selecionado, pré-selecionar a opção de eventos
+        if (preSelectedEvent) {
+          // Encontrar o card correspondente a eventos
+          const eventCard = document.querySelector(
+            '.option-card[data-value="maha-experience"]'
+          );
+
+          if (eventCard) {
+            // Simular um clique no card
+            setTimeout(() => {
+              eventCard.click();
+
+              // Opcional: rolar para a seção do checkout
+              document.querySelector(".checkout-card").scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+              });
+
+              // Opcionalmente, avançar para a próxima etapa automaticamente
+              setTimeout(() => {
+                document.getElementById("step-1-btn").click();
+              }, 800);
+            }, 500);
+          }
+        }
+
+        // Se houver uma modalidade selecionada na URL, selecionar automaticamente
+        else if (preSelectedModality) {
+          // Encontrar o card correspondente à modalidade
+          const modalityCard = document.querySelector(
+            `.option-card[data-value="${preSelectedModality}"]`
+          );
+
+          if (modalityCard) {
+            // Simular um clique no card
+            setTimeout(() => {
+              modalityCard.click();
+
+              // Opcional: rolar para a seção do checkout
+              document.querySelector(".checkout-card").scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+              });
+
+              // Opcionalmente, avançar para a próxima etapa automaticamente
+              setTimeout(() => {
+                document.getElementById("step-1-btn").click();
+              }, 800);
+            }, 500);
+          }
+        }
+
+        // Variáveis de estado
+        let currentStep = 1;
+        const totalSteps = 5;
+        let selectedModality = "";
+        let selectedFrequency = "";
+
+        // Elementos DOM
+        const steps = document.querySelectorAll(".step");
+        const progressBar = document.getElementById("progress-bar");
+        const backButtons = document.querySelectorAll(".back-btn");
+        const optionCards = document.querySelectorAll(".option-card");
+
+        // Dados das modalidades
+        const modalities = {
+          funcional: {
+            title: "Treino Funcional",
+            icon: '<i class="fas fa-dumbbell"></i>',
+            color: "purple",
+            benefits: [
+              {
+                icon: "fa-bolt",
+                title: "Ganho de força",
+                description:
+                  "Aumento da potência muscular e resistência física",
+              },
+              {
+                icon: "fa-heartbeat",
+                title: "Condicionamento",
+                description:
+                  "Melhora da capacidade cardiovascular e resistência",
+              },
+              {
+                icon: "fa-balance-scale",
+                title: "Equilíbrio corporal",
+                description:
+                  "Desenvolvimento da coordenação motora e estabilidade",
+              },
+              {
+                icon: "fa-fire",
+                title: "Queima calórica",
+                description:
+                  "Aumento do metabolismo e redução da gordura corporal",
+              },
+            ],
+            frequencies: [
+              { value: "1x", label: "1x por semana", price: 199 },
+              { value: "2x", label: "2x por semana", price: 299 },
+              { value: "3x", label: "3x por semana", price: 399 },
+            ],
+            includes: [
+              "Treinos personalizados",
+              "Acesso ao grupo exclusivo",
+              "Suporte via WhatsApp",
+            ],
+          },
+          yoga: {
+            title: "Yoga",
+            icon: '<i class="fas fa-spa"></i>',
+            color: "teal",
+            benefits: [
+              {
+                icon: "fa-brain",
+                title: "Redução do estresse",
+                description:
+                  "Diminuição da ansiedade e melhora do bem-estar mental",
+              },
+              {
+                icon: "fa-lungs",
+                title: "Melhora respiratória",
+                description: "Técnicas de respiração para maior oxigenação",
+              },
+              {
+                icon: "fa-heart",
+                title: "Flexibilidade",
+                description:
+                  "Aumento da mobilidade articular e elasticidade muscular",
+              },
+              {
+                icon: "fa-om",
+                title: "Consciência corporal",
+                description: "Maior conexão entre corpo e mente",
+              },
+            ],
+            frequencies: [
+              { value: "1x", label: "1x por semana", price: 220 },
+              { value: "2x", label: "2x por semana", price: 320 },
+            ],
+            includes: [
+              "Aulas com professores certificados",
+              "Acesso a meditações guiadas",
+              "Material de apoio exclusivo",
+            ],
+          },
+          "yoga-maha": {
+            title: "Yoga Maha",
+            icon: '<i class="fas fa-om"></i>',
+            color: "teal",
+            benefits: [
+              {
+                icon: "fa-brain",
+                title: "Meditação avançada",
+                description: "Técnicas profundas de meditação e mindfulness",
+              },
+              {
+                icon: "fa-lungs",
+                title: "Pranayama completo",
+                description: "Técnicas respiratórias avançadas",
+              },
+              {
+                icon: "fa-heart",
+                title: "Autoconhecimento",
+                description: "Jornada de descoberta pessoal e crescimento",
+              },
+              {
+                icon: "fa-om",
+                title: "Filosofia yóguica",
+                description:
+                  "Estudo dos textos e princípios filosóficos do yoga",
+              },
+            ],
+            frequencies: [
+              { value: "1x", label: "1x por semana", price: 250 },
+              { value: "2x", label: "2x por semana", price: 350 },
+            ],
+            includes: [
+              "Aulas exclusivas com Lucas Gil",
+              "Acesso ao grupo exclusivo",
+              "Rituais e práticas especiais",
+              "Material didático completo",
+            ],
+          },
+          running: {
+            title: "Assessoria de Corrida",
+            icon: '<i class="fas fa-running"></i>',
+            color: "orange",
+            benefits: [
+              {
+                icon: "fa-tachometer-alt",
+                title: "Aumento de performance",
+                description: "Melhora de pace e resistência nas corridas",
+              },
+              {
+                icon: "fa-chart-line",
+                title: "Plano periodizado",
+                description: "Treinamento estruturado com progressão adequada",
+              },
+              {
+                icon: "fa-shoe-prints",
+                title: "Técnica de corrida",
+                description: "Aprimoramento da mecânica e eficiência",
+              },
+              {
+                icon: "fa-medal",
+                title: "Preparação para provas",
+                description: "Estratégias específicas para competições",
+              },
+            ],
+            frequencies: [
+              { value: "basic", label: "Plano Básico", price: 280 },
+              { value: "advanced", label: "Plano Avançado", price: 380 },
+            ],
+            includes: [
+              "Planilha personalizada",
+              "Análise de dados de treino",
+              "Suporte técnico",
+              "Dicas de nutrição para corredores",
+            ],
+          },
+          "maha-experience": {
+            title: "Maha Experience",
+            icon: '<i class="fas fa-crown"></i>',
+            color: "blue",
+            benefits: [
+              {
+                icon: "fa-star",
+                title: "Acesso completo",
+                description: "Participe de todas as modalidades quando quiser",
+              },
+              {
+                icon: "fa-user-shield",
+                title: "Acompanhamento VIP",
+                description: "Atendimento prioritário e personalizado",
+              },
+              {
+                icon: "fa-gem",
+                title: "Conteúdo exclusivo",
+                description: "Workshops, eventos e materiais premium",
+              },
+              {
+                icon: "fa-handshake",
+                title: "Networking privilegiado",
+                description: "Conexões com a comunidade premium Maha",
+              },
+            ],
+            frequencies: [
+              { value: "premium", label: "Premium Mensal", price: 599 },
+              {
+                value: "premium-yearly",
+                label: "Premium Anual (20% off)",
+                price: 5750,
+              },
+            ],
+            includes: [
+              "Acesso ilimitado a todas as modalidades",
+              "Sessões individuais mensais",
+              "Participação em eventos exclusivos",
+              "Desconto em produtos parceiros",
+              "Conteúdo digital exclusivo",
+            ],
+          },
+        };
+
+        // Configuração inicial
+        updateProgress();
+
+        // Event Listeners
+        optionCards.forEach((card) => {
+          card.addEventListener("click", function () {
+            // Remove classe ativa de todos os cards
+            optionCards.forEach((c) => c.classList.remove("active-option"));
+
+            // Adiciona classe ativa ao card selecionado
+            this.classList.add("active-option");
+
+            // Atualiza modalidade selecionada
+            selectedModality = this.getAttribute("data-value");
+
+            // Habilita botão de próxima etapa
+            document.getElementById("step-1-btn").removeAttribute("disabled");
+          });
+        });
+
+        // Botões de próxima etapa
+        document
+          .getElementById("step-1-btn")
+          .addEventListener("click", function () {
+            // Atualiza o título e conteúdo dos benefícios da modalidade selecionada
+            updateBenefitsContent();
+            goToStep(2);
+          });
+
+        document
+          .getElementById("step-2-btn")
+          .addEventListener("click", function () {
+            goToStep(3);
+          });
+
+        document
+          .getElementById("step-3-btn")
+          .addEventListener("click", function () {
+            // Atualiza as opções de frequência baseadas na modalidade
+            updateFrequencyOptions();
+            goToStep(4);
+          });
+
+        document
+          .getElementById("step-4-btn")
+          .addEventListener("click", function () {
+            // Atualiza o resumo do plano
+            updatePlanSummary();
+            goToStep(5);
+          });
+
+        // Botões de voltar
+        backButtons.forEach((button) => {
+          button.addEventListener("click", function () {
+            goToStep(currentStep - 1);
+          });
+        });
+
+        // Opções de pagamento
+        const paymentOptions = document.querySelectorAll(".payment-option");
+        paymentOptions.forEach((option) => {
+          option.addEventListener("click", function () {
+            paymentOptions.forEach((o) => o.classList.remove("active"));
+            this.classList.add("active");
+          });
+        });
+
+        // Botão de finalizar
+        document
+          .getElementById("checkout-button")
+          .addEventListener("click", function () {
+            // Obter valores selecionados
+            const modalityValue = selectedModality;
+            const frequencyValue = selectedFrequency;
+
+            let checkoutUrl = "";
+
+            // Definir URLs de checkout para cada combinação de plano/modalidade/frequência
+            if (modalityValue === "funcional") {
+              if (
+                frequencyValue.includes("1x") ||
+                frequencyValue === "monthly"
+              ) {
+                checkoutUrl =
+                  "https://app.tecnofit.com.br/ng/online-sale/MTQzNzg3/checkout/ODU0NDgw/forms";
+              } else if (
+                frequencyValue.includes("2x") ||
+                frequencyValue === "quarterly"
+              ) {
+                checkoutUrl =
+                  "https://app.tecnofit.com.br/ng/online-sale/MTQzNzg3/checkout/ODMwNDE4/forms";
+              } else if (
+                frequencyValue.includes("3x") ||
+                frequencyValue.includes("4x") ||
+                frequencyValue === "annual"
+              ) {
+                checkoutUrl =
+                  "https://app.tecnofit.com.br/ng/online-sale/MTQzNzg3/checkout/ODM3NzE3/forms";
+              }
+            } else if (modalityValue === "yoga") {
+              if (
+                frequencyValue.includes("1x") ||
+                frequencyValue === "monthly"
+              ) {
+                checkoutUrl =
+                  "https://app.tecnofit.com.br/ng/online-sale/MTQzNzg3/checkout/ODc3NTQx/forms";
+              } else if (
+                frequencyValue.includes("2x") ||
+                frequencyValue === "quarterly"
+              ) {
+                checkoutUrl =
+                  "https://app.tecnofit.com.br/ng/online-sale/MTQzNzg3/checkout/ODc3NTQy/forms";
+              } else if (
+                frequencyValue.includes("3x") ||
+                frequencyValue === "annual"
+              ) {
+                checkoutUrl =
+                  "https://app.tecnofit.com.br/ng/online-sale/MTQzNzg3/checkout/OTc2NjQ2/forms";
+              }
+            } else if (modalityValue === "yoga-maha") {
+              if (
+                frequencyValue.includes("1x") ||
+                frequencyValue === "monthly"
+              ) {
+                checkoutUrl =
+                  "https://app.tecnofit.com.br/ng/online-sale/MTQzNzg3/checkout/ODc3NTQ0/forms";
+              } else if (
+                frequencyValue.includes("2x") ||
+                frequencyValue === "quarterly"
+              ) {
+                checkoutUrl =
+                  "https://app.tecnofit.com.br/ng/online-sale/MTQzNzg3/checkout/ODc3NTQz/forms";
+              } else if (frequencyValue === "annual") {
+                checkoutUrl =
+                  "https://app.tecnofit.com.br/ng/online-sale/MTQzNzg3/checkout/ODc3NTQz/forms";
+              }
+            } else if (modalityValue === "running") {
+              if (frequencyValue === "basic" || frequencyValue === "monthly") {
+                checkoutUrl =
+                  "https://app.tecnofit.com.br/ng/online-sale/MTQzNzg3/checkout/OTQ2NDM0/forms";
+              } else if (
+                frequencyValue === "advanced" ||
+                frequencyValue === "quarterly"
+              ) {
+                checkoutUrl =
+                  "https://app.tecnofit.com.br/ng/online-sale/MTQzNzg3/checkout/OTQ2NDM0/forms";
+              } else if (frequencyValue === "annual") {
+                checkoutUrl =
+                  "https://app.tecnofit.com.br/ng/online-sale/MTQzNzg3/checkout/OTQ2NDM0/forms";
+              }
+            } else if (modalityValue === "maha-experience") {
+              if (
+                frequencyValue === "premium" ||
+                frequencyValue === "monthly"
+              ) {
+                checkoutUrl =
+                  "https://app.tecnofit.com.br/ng/online-sale/MTQzNzg3/checkout/ODMwNDE3/forms";
+              } else if (
+                frequencyValue === "premium-yearly" ||
+                frequencyValue === "quarterly"
+              ) {
+                checkoutUrl =
+                  "https://app.tecnofit.com.br/ng/online-sale/MTQzNzg3/checkout/ODMwNDE3/forms";
+              } else if (frequencyValue === "annual") {
+                checkoutUrl =
+                  "https://app.tecnofit.com.br/ng/online-sale/MTQzNzg3/checkout/ODMwNDE3/forms";
+              }
+            }
+
+            if (checkoutUrl) {
+              window.location.href = checkoutUrl;
+            } else {
+              alert(
+                "Por favor, selecione uma modalidade e frequência para continuar."
+              );
+            }
+          });
+
+        // Funções auxiliares
+        function goToStep(step) {
+          // Esconde o passo atual
+          steps[currentStep - 1].classList.remove("active");
+
+          // Mostra o próximo passo
+          steps[step - 1].classList.add("active");
+
+          // Atualiza o passo atual
+          currentStep = step;
+
+          // Atualiza a barra de progresso
+          updateProgress();
+        }
+
+        function updateProgress() {
+          const progressPercentage =
+            ((currentStep - 1) / (totalSteps - 1)) * 100;
+          progressBar.style.width = `${progressPercentage}%`;
+        }
+
+        function updateBenefitsContent() {
+          const modality = modalities[selectedModality];
+
+          // Atualiza o título
+          document.getElementById(
+            "benefits-title"
+          ).textContent = `Benefícios do ${modality.title}`;
+
+          // Atualiza o conteúdo
+          const benefitsContent = document.getElementById("benefits-content");
+          benefitsContent.innerHTML = "";
+
+          // Cria o contêiner para os benefícios
+          const benefitsGrid = document.createElement("div");
+          benefitsGrid.className = "grid grid-cols-1 md:grid-cols-2 gap-6 mb-8";
+
+          // Adiciona cada benefício
+          modality.benefits.forEach((benefit) => {
+            const benefitCard = document.createElement("div");
+            benefitCard.className = `bg-gray-800/50 p-5 rounded-xl border border-${modality.color}-500/30`;
+            benefitCard.innerHTML = `
+              <div class="text-${modality.color}-400 text-3xl mb-3">
+                <i class="fas ${benefit.icon}"></i>
+              </div>
+              <h4 class="text-xl font-semibold mb-2">${benefit.title}</h4>
+              <p class="text-gray-400 text-sm">
+                ${benefit.description}
+              </p>
+            `;
+            benefitsGrid.appendChild(benefitCard);
+          });
+
+          benefitsContent.appendChild(benefitsGrid);
+        }
+
+        function updateFrequencyOptions() {
+          const modality = modalities[selectedModality];
+          const frequencyOptions = document.getElementById("frequency-options");
+          frequencyOptions.innerHTML = "";
+
+          modality.frequencies.forEach((freq) => {
+            const freqCard = document.createElement("div");
+            freqCard.className =
+              "frequency-card bg-gray-800/50 p-5 rounded-xl hover:shadow-lg transition-all duration-300 cursor-pointer border border-transparent";
+            freqCard.setAttribute("data-value", freq.value);
+
+            freqCard.innerHTML = `
+              <div class="flex justify-between items-center mb-3">
+                <h4 class="text-xl font-semibold">${freq.label}</h4>
+                <div class="text-${modality.color}-400 text-xl">
+                  ${modality.icon}
+                </div>
+              </div>
+              <div class="mb-3">
+                <span class="text-2xl font-bold">R$ ${freq.price},00</span>
+                <span class="text-gray-400 text-sm">/mês</span>
+              </div>
+              <p class="text-gray-400 text-sm mb-3">
+                Acesso completo a ${modality.title}
+              </p>
+            `;
+
+            freqCard.addEventListener("click", function () {
+              // Remove classe ativa de todos os cards
+              document
+                .querySelectorAll(".frequency-card")
+                .forEach((c) => c.classList.remove("active-frequency"));
+
+              // Adiciona classe ativa ao card selecionado
+              this.classList.add("active-frequency");
+              this.classList.add(`border-${modality.color}-500`);
+
+              // Atualiza frequência selecionada
+              selectedFrequency = this.getAttribute("data-value");
+
+              // Habilita botão de próxima etapa
+              document.getElementById("step-4-btn").removeAttribute("disabled");
+            });
+
+            frequencyOptions.appendChild(freqCard);
+          });
+        }
+
+        function updatePlanSummary() {
+          const modality = modalities[selectedModality];
+          const selectedFrequencyObj = modality.frequencies.find(
+            (f) => f.value === selectedFrequency
+          );
+
+          // Ícone e título
+          document.getElementById("plan-icon").innerHTML = modality.icon;
+          document.getElementById(
+            "plan-icon"
+          ).className = `w-12 h-12 bg-${modality.color}-500/20 rounded-full flex items-center justify-center text-${modality.color}-400 mr-4`;
+
+          document.getElementById("plan-title").textContent = modality.title;
+          document.getElementById("plan-frequency").textContent =
+            selectedFrequencyObj.label;
+
+          // Preços
+          document.getElementById(
+            "plan-price"
+          ).textContent = `R$ ${selectedFrequencyObj.price},00`;
+
+          let pricePerClass;
+          if (selectedFrequency === "1x") {
+            pricePerClass = selectedFrequencyObj.price / 4; // 4 aulas por mês
+          } else if (selectedFrequency === "2x") {
+            pricePerClass = selectedFrequencyObj.price / 8; // 8 aulas por mês
+          } else if (selectedFrequency === "3x") {
+            pricePerClass = selectedFrequencyObj.price / 12; // 12 aulas por mês
+          } else {
+            // Para planos como "basic", "advanced" ou "premium"
+            pricePerClass = "-";
+          }
+
+          if (typeof pricePerClass === "number") {
+            document.getElementById(
+              "class-price"
+            ).textContent = `R$ ${pricePerClass.toFixed(2)}`;
+          } else {
+            document.getElementById("class-price").textContent = pricePerClass;
+          }
+
+          // Benefícios incluídos
+          const planIncludes = document.getElementById("plan-includes");
+          planIncludes.innerHTML = "";
+
+          modality.includes.forEach((item) => {
+            const li = document.createElement("li");
+            li.className = "flex items-center mb-2";
+            li.innerHTML = `
+              <i class="fas fa-check text-green-500 mr-2"></i>
+              <span>${item}</span>
+            `;
+            planIncludes.appendChild(li);
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,317 @@
+MAHA PLAY - 
+
+quero um site premium que respira tecnologia, lifestyle e exclusividade.
+
+cores: site modo escuro - moderno - muito bem acabado com muito css e jv script vannilla. cores, cinza e botoes e detalhes. Patreado (onde o site seja sinza e com um efeito prateado em tudo) degrade. mas algo que chame luxo e serenidade. 
+
+que o site seja clean mas BEEEM tecnologico.  
+
+Criar uma pagina com o Formularios para incrição nos programas . um formulario personalizado
+
+
+site todos em JSVANILLA / CSS / TAILWID
+
+
+(minhas palavras. maha play é um grupo que cresceu muito rapido, tem um pessoal muito bacana, no sentido de ricos e famosos. e o pessoas vai para fazer aquele network e ter aquele life style 'cool'" faça copys com isso. 
+
+crie as sessoes e de uma atenção especial e personalizada para cada sessão cada sessão com a sua cor especial. que até os formularios na outra pagina teram elas.
+
+
+first mobile: na bar com neon no logo pulsando - com coloque um simbolo de flor de lotus no lugar do humbiuerguer para abrir a sessões de navegação. deixar a sessão para se tornar membro
+
+tem um botão flutuante bem brilante neon escrito: SER MAHA PLAY
+
+botoes:
+faça este site quero que os botoes sejam todos de neon. e com interatividade. e degrade.
+
+quero que todos levem para o whatsapp com uma menssagem especifica dizendo por exemplo na sesão de yoga. a menssagem seja :Oii quero ser Maha Play! vou começar por yoga. pode me passar as informaçoes, por favor? e para cada sessão esse mesmo padrão.
+
+
+
+Painel
+quero que tenha uma pagina admin simples: que dentro dela ele consiga acompanhar atraves de graficos, os cliques separado por sessão. pagina funciuonal e moderna , 
+Registro de cliques por sessão via JavaScript
+
+
+
+MAHAPLAY - TREINOS E EVENTOS ESPORTIVOS
+
+    Instagram: @maha.play
+
+    Seguidores: 41,8 mil
+
+    WhatsApp: (11) 91664-1060
+
+    Link direto: wa.me/5511916641060
+
+    Local principal: Parque Ibirapuera, São Paulo - SP
+
+
+
+
+PRODUTOS: pegas na pasta mahaplay/assets/imgs// as imagens 
+
+PATROCINIOS
+
+@vesten https://www.instagram.com/vestem/
+
+
+GRADE DE AULAS - MAHAPLAY IBIRAPUERA
+Treino Funcional
+
+    Terça-feira: 6h00, 7h30, 9h00 e 19h30
+
+    Quinta-feira: 6h00, 7h30, 9h00 e 19h30
+
+    Quarta-feira: 6h00
+
+    Domingo: 8h00
+
+    Aulas noturnas: Terças e quintas às 19h30
+
+    Inscrições: Via WhatsApp (link na bio)
+
+Yoga
+
+    Segunda-feira: 7h00
+
+    Quarta-feira: 7h00
+
+    Sábado: 9h00
+    
+    
+    professor: 
+    
+https://www.instagram.com/rbaldin
+https://www.instagram.com/lucasgil.mbt
+https://www.instagram.com/jonassulzbach
+
+    1.792 publicações
+    371 mil seguidores
+    1.635 seguindo
+
+Ricardo Baldin
+Nenhum de nós é melhor que todos nós juntos 🌀
+Yoga no @mahaplay.yoga
+Model @megamodelbrasil
+Foto @baldinphoto
+♒️♊️♉️
+Beach Tennis • Run 5-10-21-42 🔓
+
+Assessoria de Corrida (Mahaplay Runners)
+
+    Sexta-feira: 6h00
+
+    Tipo: Corrida personalizada e especializada
+    
+    Iniciaremos Mahaplay Runners
+
+1. Público-Alvo
+
+Foco em atender todos os níveis de corredores, oferecendo suporte personalizado:
+
+• Iniciantes: Orientação para começar a correr de forma segura e consistente.
+
+• Intermediários: Treinos estruturados para melhorar tempo e resistência.
+
+• Avançados: Foco em desempenho para provas, com estratégias avançadas de treino e recuperação.
+
+2. Serviços Oferecidos
+
+• Planilha de treino mensal personalizada.
+
+• Feedback quinzenal de análise de desempenho
+
+• Dicas gerais de nutrição e recuperação
+
+• Avaliação física inicial e reavaliação mensal.
+
+• ⁠Treino presencial 1x por semana
+
+• Suporte via WhatsApp em horário comercial.
+
+• Acesso a um grupo exclusivo com desafios mensais e dicas extras
+
+• Valor: R$ 200,00/mês.
+
+Para fazer parte da nossa assessoria de corrida, é só entrar no link que está na bio e falar direto com nosso time comercial, tudo rápido e fácil!
+
+Bora pra cima Mahaplayers!
+
+Excelente dia a todos!
+
+
+-----
+
+
+Vc pode ter seus registros nos treinos @maha.play através dos clicks do @rbaldin
+📸 @baldinphoto
+
+
+---
+
+EVENTO ESPECIAL - AULÃO EM SANTOS
+
+    Data: 12 de abril
+
+    Horário: 7h30
+
+    Local: Santos - SP (à beira-mar)
+
+    O que levar: Água e colchonete
+
+    Inscrição: Via WhatsApp na bio do Instagram
+    
+ SESSÃO DUVIDAS:
+ 
+ /home/gabriel-balsarin/Projetos/MAHA PLAY/assets/imgs/duvidas/ EXTRAIR O TEXTO DESSAS IMAGENS
+
+
+SESSSÃO : QUEM ESTA POR TRAS.
+obs: colocar o selinho de verificado do instagram ao lado do nome deles.
+fotos deles, na pasta assets/imgs/founders
+
+https://www.instagram.com/lucasgil.mbt
+https://www.instagram.com/jonassulzbach
+L U C A S   G I L
+Criador(a) de conteúdo digital
+➖Sports, Nutrition, Fashion & Family
+➖Comunidade @maha.play
+➖Nutricionista @lescinqgym
+➖contato@lucas-gil.com
+➖STORIES TEM NUTRIÇÃO & SAÚDE!
+https://linktr.ee/lucasgil.mbt?fbclid=PAZXh0bgNhZW0CMTEAAaZk8vcGFguOM0uWnKmJVNhsjL89P9G-VhpsBZ2h61FlSf9sDGGQJ423ukc_aem_huteBpnHgkDMfP1tqu14BQ
+
+
+
+https://www.instagram.com/jonassulzbach
+JONΛS SULZBΛCH A+
+Artista
+💥 Co-founder @maha.play
+🌱 Co-founder @sunrizebr
+📍 Trabalhos isadora@trendingagenciamento.com.br
+
+
+
+
+Outras Contas Mahaplay
+
+    @mahaplay.yoga
+
+    @mahaplay.vilas
+
+    @mahaplay.abc
+
+    @mahaplay.cg
+    
+    montar um rodapé foda. com muita interação.
+    
+    colocar que foiprodutizido por LeapFrogTech @ Transformaçoes digitais em tempo recorde
+    https://leapfrogtech.netlify.app/
+    
+    
+    
+    
+    abaixo dele colocar uma sessão de proposta de venda. mas com um nome mais simpatico
+    
+    (ex de texto de abertura. mas para o mahaplay) ( Criamos um site que vai muito além da presença online: é uma galeria virtual interativa, feita sob medida para destacar a obra, a trajetória e os produtos da artista Silvia Marcon.
+
+O projeto une arte e tecnologia de forma elegante e acessível, para aproximar Silvia do seu público e aumentar o valor percebido da marca. )
+    
+    O Que Foi Entregue 
+    
+    Funcionalidades Técnicas
+    
+    O Site é Seu Para Sempre
+
+    Propriedade 100% sua - o site pertence integralmente à Silvia Marcon
+    Sem custos mensais obrigatórios - você decide se quer contratar manutenção contínua
+    Hospedagem independente - site hospedado na sua conta, sem depender de terceiros
+    Código-fonte completo - todos os arquivos e códigos são entregues a você
+
+
+
+mas editado bonitinho para eles verem: porem que possa ser retirado sem prejudicar o site.
+
+colocar proposta de venda.:
+site completo já no ar
+
++ dominio www.mahaplaytreino.com.br + www.mahaplayyoga.com.br por 2 anos. 
++ hospedagem por 2 anos.
++1 mes de gratis de ediçoes no site para qualquer novo evento que queira que adicione ou alteração de algo
+
+coloca mais umas vantanges ai. e faz uma oferta de 4.000,00 no site
+ancora ele em mais caro.
+
+parcela no cartão com juros da maquininha até 12x
+
+ou duas vezes no pix
+ou metade no pix e o resto no cartão
+
+
+
+E Agora? Vamos Fechar?
+
+Você já decidiu. Já sabe como quer pagar. Então a próxima etapa é simples e empolgante:
+O Que Acontece Agora
+
+    Iniciaremos uma série de reuniões rápidas e objetivas
+        Para alinhar imagens, textos, direção dos links
+        E criar +3 novas páginas do seu interesse
+    Tudo será documentado e redefinido com calma
+        Você terá voz ativa em cada detalhe
+    Prazo de 15 dias para finalização das atualizações
+        Enquanto isso, o site já estará no ar e funcionando normalmente
+    Implementação do domínio já adquirido
+        Configuração completa do domínio que você já comprou
+        Direcionamento para o novo site e configuração de e-mails
+
+Vamos juntos transformar essa presença digital em um verdadeiro ponto de encontro com
+
+
+Uma Oportunidade Única
+
+O valor de mercado para um site desse porte seria no mínimo R$ 7.500,00, um investimento já muito acessível para a qualidade entregue. Porém, pela oportunidade de ter seu trabalho em meu portfólio e pelo carinho que tenho por você e sua arte, ofereço essa condição exclusiva de R$ 4.000,00.
+
+Este valor é válido apenas para esta proposta e representa um investimento em sua presença digital que trará frutos por muito tempo. Não perca a chance de ter um site premium por um valor tão especial.   
+
+algo tipo isso no final voltado para esse negocio
+
+
+Funcional
+Os treinos acontecem:
+
+
+Terças e Quintas- 06:00h, 07:30h, 9:00h e 19:30h
+Quartas - 06:00h
+
+Domingos 08:00h
+
+4 aulas no mês - 159,00
+8 aulas no mês - 219,00
+12 aulas no mês- 269,00
+16 aulas no mês - 319,00
+
+Aula avulsa/experimental - 55,00
+
+Ao fechar qualquer plano, abatemos o valor pago em sua primeira mensalidade.
+
+Total flexibilidade de dias e horários. 
+Vc receberá um acesso ao nosso app e em todas as vezes que vc for treinar, é só fazer o check-in, o app vai contabilizando o total de aulas já utilizadas.
+Yoga
+As aulas de yoga acontecem todas as segundas e quartas-feiras às 07h:00 e sábados às 09h.
+
+Sobre os valores
+1 x semana ou 4 aulas no mês = 129,00 (Mensal) 
+2 x semana ou 8 aulas no mês = 195,00 (Mensal).
+3 X semana ou 12 aulas no mês = 235,00
+
+Aula Experimental
+Será cobrado o valor de 40,00 e fechando qualquer plano, o valor será abatido na primeira mensalidade do plano escolhido.
+Mahaplay Runners
+
+As aulas presenciais acontecem todas às sextas-feiras, às 6h. 
+Cada aluno terá acesso à sua planilha, elaborada de acordo com o seu perfil e dessa forma ir acompanhando a sua evolução.
+Nosso professores também estarão sempre à disposição para ajudar vc.
+
+Mensalidade - 200,00
