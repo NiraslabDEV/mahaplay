@@ -1,0 +1,1781 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MAHA PLAY - Treinos e Eventos Esportivos</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      /* Animação de pulsação para os botões */
+      .pulsating {
+        animation: buttonPulse 1s infinite;
+      }
+
+      @keyframes buttonPulse {
+        0% {
+          transform: scale(1);
+          box-shadow: 0 0 10px rgba(0, 245, 160, 0.7);
+        }
+        50% {
+          transform: scale(1.05);
+          box-shadow: 0 0 20px rgba(0, 245, 160, 0.9);
+        }
+        100% {
+          transform: scale(1);
+          box-shadow: 0 0 10px rgba(0, 245, 160, 0.7);
+        }
+      }
+
+      /* Efeito de highlight ativo */
+      .highlight-active {
+        text-shadow: 0 0 15px rgba(0, 245, 160, 0.9);
+        transform: scale(1.05);
+        transition: all 0.5s ease;
+      }
+
+      /* Modal de Aula Experimental */
+      .option-modal-card {
+        transition: all 0.3s ease;
+      }
+
+      .option-modal-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      }
+
+      .option-modal-card:active {
+        transform: translateY(0px);
+      }
+
+      #modal-aula-experimental {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      #modal-aula-experimental.flex {
+        opacity: 1;
+      }
+
+      /* Animação do botão flutuante */
+    </style>
+  </head>
+  <body class="bg-gray-900 text-gray-100 font-sans">
+    <!-- Botão Flutuante -->
+    <div class="fixed bottom-10 right-10 z-50">
+      <button
+        id="aula-experimental-btn"
+        class="neon-button-experimental flex items-center justify-center px-6 py-3 rounded-full text-lg font-bold"
+      >
+        SER MAHA PLAY
+        <i class="fas fa-arrow-right ml-2"></i>
+      </button>
+      <div
+        class="text-center mt-2 text-white text-xs bg-black/50 px-2 py-1 rounded-full"
+      >
+        Transforme seu lifestyle! Assine agora.
+      </div>
+    </div>
+
+    <!-- Modal de Aula Experimental -->
+    <div
+      id="modal-aula-experimental"
+      class="fixed inset-0 bg-black/70 z-[100] hidden items-center justify-center"
+    >
+      <div
+        class="bg-gray-900 border border-gray-800 rounded-xl max-w-md w-full p-6 relative"
+      >
+        <button
+          id="close-modal-aula"
+          class="absolute top-4 right-4 text-gray-400 hover:text-white"
+        >
+          <i class="fas fa-times"></i>
+        </button>
+        <h3 class="text-2xl font-bold mb-6 silver-gradient text-center">
+          Escolha sua Aula Experimental
+        </h3>
+        <p class="text-gray-300 mb-6 text-center">
+          Selecione a modalidade que você deseja experimentar:
+        </p>
+
+        <div class="grid gap-6 mb-6">
+          <a
+            href="./checkout-novo.html?modality=funcional"
+            class="option-modal-card bg-gray-800/70 p-5 rounded-xl border-2 border-purple-500/30 hover:border-purple-500 transition-all duration-300"
+          >
+            <div class="flex items-center">
+              <div class="text-purple-400 text-3xl mr-4">
+                <i class="fas fa-dumbbell"></i>
+              </div>
+              <div>
+                <h4 class="text-xl font-semibold mb-1">Treino Funcional</h4>
+                <div class="flex items-center">
+                  <span class="text-purple-300 font-bold">R$55,00</span>
+                  <span class="text-gray-400 text-sm ml-2">por aula</span>
+                </div>
+              </div>
+            </div>
+          </a>
+
+          <a
+            href="./checkout-novo.html?modality=yoga"
+            class="option-modal-card bg-gray-800/70 p-5 rounded-xl border-2 border-teal-500/30 hover:border-teal-500 transition-all duration-300"
+          >
+            <div class="flex items-center">
+              <div class="text-teal-400 text-3xl mr-4">
+                <i class="fas fa-spa"></i>
+              </div>
+              <div>
+                <h4 class="text-xl font-semibold mb-1">Yoga</h4>
+                <div class="flex items-center">
+                  <span class="text-teal-300 font-bold">R$45,00</span>
+                  <span class="text-gray-400 text-sm ml-2">por aula</span>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <p class="text-sm text-gray-400 text-center mt-4">
+          <i class="fas fa-info-circle mr-1"></i> O valor da aula experimental
+          será abatido na mensalidade caso você escolha aderir a algum plano.
+        </p>
+      </div>
+    </div>
+
+    <!-- Botão Admin Oculto -->
+    <div id="adminAccessBtn" class="admin-button fixed bottom-5 right-5 z-50">
+      <i class="fas fa-cog text-gray-700"></i>
+    </div>
+
+    <!-- Admin Modal -->
+    <div class="admin-modal hidden" id="adminModal">
+      <div class="admin-modal-content modal-content">
+        <div class="admin-modal-header">
+          <h3 class="text-xl font-semibold">Acesso Administrativo</h3>
+          <button
+            id="closeModal"
+            class="close-btn text-gray-400 hover:text-white"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="admin-modal-body">
+          <form id="adminLoginForm">
+            <div class="mb-4">
+              <label
+                for="adminPassword"
+                class="block text-sm font-medium text-gray-400 mb-2"
+              >
+                Senha
+              </label>
+              <input
+                type="password"
+                id="adminPassword"
+                class="bg-gray-800 text-white w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
+                placeholder="Digite a senha de acesso"
+              />
+            </div>
+            <div class="flex justify-end">
+              <button type="submit" class="neon-button px-4 py-2 rounded-lg">
+                Acessar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Header -->
+    <header
+      class="navbar sticky top-0 z-50 bg-gray-900/80 backdrop-blur-sm shadow-lg"
+    >
+      <nav
+        class="container mx-auto py-4 px-6 flex justify-between items-center"
+      >
+        <div class="flex-shrink-0">
+          <a href="#" class="flex items-center">
+            <img
+              class="h-10 w-auto logo"
+              src="./assets/imgs/logos/logo-mahaplay.png"
+              alt="MAHA PLAY"
+            />
+          </a>
+        </div>
+        <!-- Menu mobile -->
+        <div class="md:hidden">
+          <button id="menu-toggle" aria-label="Menu">
+            <i class="fas fa-bars"></i>
+          </button>
+
+          <div id="mobile-menu">
+            <button id="close-menu" aria-label="Fechar menu">
+              <i class="fas fa-times"></i>
+            </button>
+
+            <ul>
+              <li><a href="#hero">Início</a></li>
+              <li><a href="#treino">Treino Funcional</a></li>
+              <li><a href="#yoga">Yoga</a></li>
+              <li><a href="#running">Corrida</a></li>
+              <li><a href="#equipe">Nosso Time</a></li>
+              <li><a href="#eventos">Eventos</a></li>
+              <li><a href="#duvidas">Dúvidas</a></li>
+              <li>
+                <a href="checkout-novo.html" class="neon-button"
+                  >Assine Agora</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="hidden md:flex items-center space-x-6">
+          <a href="#treino-funcional" class="neon-link">Treino Funcional</a>
+          <a href="#yoga" class="neon-link">Yoga</a>
+          <a href="#corrida" class="neon-link">Corrida</a>
+          <a href="#eventos" class="neon-link">Eventos</a>
+          <a href="#equipe" class="neon-link">Nosso Time</a>
+          <a href="#duvidas" class="neon-link">Dúvidas</a>
+          <a
+            href="./checkout-novo.html"
+            class="neon-button py-2 px-4 rounded-full bg-gradient-to-r from-purple-600 to-teal-500"
+          >
+            <i class="fas fa-star mr-1"></i> Assine Agora
+          </a>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative h-screen flex items-center justify-center">
+      <div class="absolute inset-0 z-0">
+        <img
+          src="./assets/imgs/hero.png"
+          alt="MAHA PLAY Background"
+          class="w-full h-full object-cover"
+        />
+        <div
+          class="absolute inset-0 bg-gradient-to-b from-gray-900/30 to-gray-900/90"
+        ></div>
+      </div>
+      <div
+        class="container mx-auto px-6 relative z-10 flex items-center justify-center"
+      >
+        <div class="max-w-2xl fade-in text-center">
+          <div class="logo-neon-container hero-logo">
+            <img
+              src="./assets/imgs/logos/logo-mahaplay.png"
+              alt="MAHA PLAY Logo"
+              class="logo-neon logo-hero h-72 md:h-96 mb-6"
+            />
+          </div>
+          <p class="text-xl md:text-2xl mb-8 text-gray-200">
+            Transforme seu lifestyle através do esporte com uma comunidade
+            exclusiva que respira superação e bem-estar.
+          </p>
+          <div class="flex flex-wrap gap-4 justify-center">
+            <a
+              href="#treino-funcional"
+              class="neon-button px-6 py-3 rounded-full text-lg"
+              id="treino-funcional"
+            >
+              Conheça nossos treinos
+              <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+            <a
+              href="https://www.instagram.com/maha.play/"
+              target="_blank"
+              class="neon-button-outline px-6 py-3 rounded-full text-lg"
+            >
+              <i class="fab fa-instagram mr-2"></i> Siga-nos
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Nova Seção: Nossa História -->
+    <section class="py-20 bg-gray-900 relative overflow-hidden">
+      <div
+        class="section-highlight"
+        style="
+          background: linear-gradient(
+            45deg,
+            rgba(128, 0, 128, 0.15),
+            rgba(0, 128, 128, 0.15)
+          );
+        "
+      ></div>
+      <div class="container mx-auto px-6">
+        <h2
+          class="text-3xl md:text-4xl font-bold mb-8 glitch text-center"
+          data-text="Nossa História"
+        >
+          Nossa História
+        </h2>
+
+        <!-- Timeline de Crescimento -->
+        <div class="max-w-4xl mx-auto mb-16 relative">
+          <!-- Linha do tempo vertical -->
+          <div
+            class="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-purple-500 via-teal-500 to-orange-500"
+          ></div>
+
+          <!-- Marcos da História -->
+          <div class="grid grid-cols-1 gap-12">
+            <!-- Início -->
+            <div
+              class="flex flex-col md:flex-row items-center md:items-start gap-6 relative fade-in"
+            >
+              <div class="md:w-1/2 md:text-right order-2 md:order-1">
+                <h3 class="text-2xl font-bold mb-3 silver-gradient">
+                  O Início
+                </h3>
+                <p class="text-gray-300">
+                  A Maha Play nasceu da paixão de seus fundadores por unir
+                  exercício, bem-estar e comunidade. O que começou como um
+                  pequeno grupo de treinos no Parque Ibirapuera rapidamente
+                  ganhou uma identidade única: não apenas um lugar para treinar,
+                  mas um espaço para transformação pessoal e conexões
+                  significativas.
+                </p>
+              </div>
+
+              <div
+                class="order-1 md:order-2 z-10 flex items-center justify-center"
+              >
+                <div
+                  class="w-16 h-16 rounded-full bg-gray-900 border-4 border-purple-500 flex items-center justify-center"
+                >
+                  <i class="fas fa-seedling text-2xl text-purple-400"></i>
+                </div>
+              </div>
+
+              <div class="md:w-1/2 hidden md:block order-3">
+                <!-- Espaço vazio para alinhamento -->
+              </div>
+            </div>
+
+            <!-- Crescimento -->
+            <div
+              class="flex flex-col md:flex-row items-center md:items-start gap-6 relative fade-in"
+            >
+              <div class="md:w-1/2 hidden md:block order-1">
+                <!-- Espaço vazio para alinhamento -->
+              </div>
+
+              <div
+                class="order-1 md:order-2 z-10 flex items-center justify-center"
+              >
+                <div
+                  class="w-16 h-16 rounded-full bg-gray-900 border-4 border-teal-500 flex items-center justify-center"
+                >
+                  <i class="fas fa-chart-line text-2xl text-teal-400"></i>
+                </div>
+              </div>
+
+              <div class="md:w-1/2 order-2 md:order-3">
+                <h3 class="text-2xl font-bold mb-3 silver-gradient">
+                  Rápido Crescimento
+                </h3>
+                <p class="text-gray-300">
+                  Em pouco tempo, o que era uma ideia inovadora se transformou
+                  em um fenômeno. A Maha Play expandiu suas modalidades,
+                  conquistou novos espaços e atraiu pessoas que compartilham a
+                  mesma visão: a busca por excelência em todas as áreas da vida.
+                  Nossa comunidade cresceu organicamente, movida pelo entusiasmo
+                  de quem já era parte dela.
+                </p>
+              </div>
+            </div>
+
+            <!-- Comunidade Elite -->
+            <div
+              class="flex flex-col md:flex-row items-center md:items-start gap-6 relative fade-in"
+            >
+              <div class="md:w-1/2 md:text-right order-2 md:order-1">
+                <h3 class="text-2xl font-bold mb-3 silver-gradient">
+                  Comunidade de Excelência
+                </h3>
+                <p class="text-gray-300">
+                  Hoje, a Maha Play se orgulha de reunir uma comunidade de alto
+                  nível: profissionais de diversas áreas, empreendedores,
+                  atletas e pessoas comprometidas com seu desenvolvimento
+                  pessoal. Não é apenas sobre treinar o corpo, mas sobre
+                  cultivar conexões valiosas e criar oportunidades que
+                  transcendem o ambiente de treino.
+                </p>
+              </div>
+
+              <div
+                class="order-1 md:order-2 z-10 flex items-center justify-center"
+              >
+                <div
+                  class="w-16 h-16 rounded-full bg-gray-900 border-4 border-orange-500 flex items-center justify-center"
+                >
+                  <i class="fas fa-users text-2xl text-orange-400"></i>
+                </div>
+              </div>
+
+              <div class="md:w-1/2 hidden md:block order-3">
+                <!-- Espaço vazio para alinhamento -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Destaques em Cards -->
+        <div class="grid md:grid-cols-3 gap-8">
+          <!-- Card 1: Propósito -->
+          <div
+            class="bg-gray-800/50 p-6 rounded-xl border border-purple-500/30 hover:border-purple-500/60 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl"
+          >
+            <div class="text-purple-400 text-3xl mb-4">
+              <i class="fas fa-star"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3">Nosso Propósito</h3>
+            <p class="text-gray-300">
+              Transformar vidas através de experiências que integram exercício
+              físico, bem-estar mental e conexões sociais significativas.
+              Acreditamos que o verdadeiro sucesso vem do equilíbrio entre
+              corpo, mente e comunidade.
+            </p>
+          </div>
+
+          <!-- Card 2: Metodologia -->
+          <div
+            class="bg-gray-800/50 p-6 rounded-xl border border-teal-500/30 hover:border-teal-500/60 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl"
+          >
+            <div class="text-teal-400 text-3xl mb-4">
+              <i class="fas fa-lightbulb"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3">Nossa Metodologia</h3>
+            <p class="text-gray-300">
+              Combinamos técnicas modernas de treinamento com abordagens
+              holísticas para o bem-estar. Cada aula é cuidadosamente pensada
+              para proporcionar resultados físicos, clareza mental e
+              oportunidades de networking.
+            </p>
+          </div>
+
+          <!-- Card 3: Diferenciais -->
+          <div
+            class="bg-gray-800/50 p-6 rounded-xl border border-orange-500/30 hover:border-orange-500/60 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl"
+          >
+            <div class="text-orange-400 text-3xl mb-4">
+              <i class="fas fa-gem"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3">Nossos Diferenciais</h3>
+            <p class="text-gray-300">
+              O que nos torna únicos é o perfil de nossa comunidade:
+              profissionais de alto nível que buscam não apenas treinos, mas
+              conexões de valor. Aqui, networking e superação pessoal acontecem
+              naturalmente em cada encontro.
+            </p>
+          </div>
+        </div>
+
+        <!-- Citação Inspiradora -->
+        <div class="mt-16 text-center max-w-3xl mx-auto">
+          <blockquote class="text-2xl italic font-light text-gray-300 mb-4">
+            "A Maha Play não é apenas um lugar para treinar, é uma comunidade
+            onde pessoas excepcionais se encontram para evoluir juntas."
+          </blockquote>
+          <p class="text-lg silver-gradient">— Fundadores da Maha Play</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Treino Funcional Section -->
+    <section
+      id="treino-funcional"
+      class="py-20 bg-gray-900 relative overflow-hidden"
+    >
+      <div class="section-highlight"></div>
+      <div class="container mx-auto px-6">
+        <div class="flex items-center justify-center mb-6">
+          <span class="badge badge-primary">Trending</span>
+          <span class="badge badge-primary">High Energy</span>
+        </div>
+        <h2
+          class="text-3xl md:text-4xl font-bold mb-12 glitch text-center"
+          data-text="Treino Funcional"
+        >
+          Treino Funcional
+        </h2>
+        <div class="highlight-treino p-8 rounded-2xl mb-8">
+          <div class="grid md:grid-cols-2 gap-12 items-center">
+            <div class="space-y-6 fade-in">
+              <h3 class="text-2xl font-semibold silver-gradient glow-text">
+                Grade de Aulas - Ibirapuera
+              </h3>
+              <p class="text-lg mb-4">
+                Nosso treino funcional está bombando! Combinamos movimentos
+                dinâmicos e integrados que desafiam seu corpo por completo,
+                melhorando força, equilíbrio e condicionamento.
+              </p>
+              <ul class="space-y-3">
+                <li class="flex items-center">
+                  <span class="neon-dot mr-3"></span>
+                  <span>Terça-feira: 6h00, 7h30, 9h00 e 19h30</span>
+                </li>
+                <li class="flex items-center">
+                  <span class="neon-dot mr-3"></span>
+                  <span>Quinta-feira: 6h00, 7h30, 9h00 e 19h30</span>
+                </li>
+                <li class="flex items-center">
+                  <span class="neon-dot mr-3"></span>
+                  <span>Quarta-feira: 6h00</span>
+                </li>
+                <li class="flex items-center">
+                  <span class="neon-dot mr-3"></span>
+                  <span>Domingo: 8h00</span>
+                </li>
+                <li class="flex items-center">
+                  <span class="neon-dot mr-3"></span>
+                  <span>Aulas noturnas: Terças e quintas às 19h30</span>
+                </li>
+              </ul>
+
+              <!-- Planos e Preços do Treino Funcional -->
+              <div
+                class="mt-6 bg-gray-800/50 p-5 rounded-lg border-l-4 border-purple-500"
+              >
+                <h4 class="text-xl font-semibold mb-3 text-white">
+                  Planos Disponíveis
+                </h4>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+                  <div class="bg-gray-800/70 p-3 rounded-lg text-center">
+                    <p class="text-sm text-gray-400">4 aulas/mês</p>
+                    <p class="text-base font-semibold text-purple-400">
+                      Plano Básico
+                    </p>
+                  </div>
+                  <div class="bg-gray-800/70 p-3 rounded-lg text-center">
+                    <p class="text-sm text-gray-400">8 aulas/mês</p>
+                    <p class="text-base font-semibold text-purple-400">
+                      Plano Regular
+                    </p>
+                  </div>
+                  <div class="bg-gray-800/70 p-3 rounded-lg text-center">
+                    <p class="text-sm text-gray-400">12 aulas/mês</p>
+                    <p class="text-base font-semibold text-purple-400">
+                      Plano Premium
+                    </p>
+                  </div>
+                  <div class="bg-gray-800/70 p-3 rounded-lg text-center">
+                    <p class="text-sm text-gray-400">16 aulas/mês</p>
+                    <p class="text-base font-semibold text-purple-400">
+                      Plano Intensivo
+                    </p>
+                  </div>
+                </div>
+                <div class="bg-gray-800/70 p-3 rounded-lg text-center mb-4">
+                  <p class="text-sm text-gray-400">Aula experimental</p>
+                  <p class="text-base font-semibold text-purple-400">
+                    Experimente nossa metodologia
+                  </p>
+                </div>
+                <p class="text-sm text-gray-300">
+                  <i class="fas fa-info-circle text-purple-400 mr-2"></i> Total
+                  flexibilidade de dias e horários. Você receberá acesso ao
+                  nosso app para fazer check-in nos treinos.
+                </p>
+                <p class="text-sm text-gray-300 mb-4">
+                  <i class="fas fa-info-circle text-purple-400 mr-2"></i>
+                  Conheça todos os detalhes e benefícios de cada plano na página
+                  de assinatura.
+                </p>
+                <div class="text-center">
+                  <a
+                    href="./checkout-novo.html?modality=funcional"
+                    class="neon-button funcional px-6 py-3 rounded-full"
+                  >
+                    Ver detalhes e valores
+                    <i class="fas fa-arrow-right ml-2"></i>
+                  </a>
+                </div>
+              </div>
+
+              <a
+                href="./checkout-novo.html?modality=funcional"
+                class="neon-button inline-block px-6 py-3 rounded-full mt-6"
+              >
+                Agendar experimental <i class="fas fa-arrow-right ml-2"></i>
+              </a>
+            </div>
+            <div class="glow-image fade-in">
+              <img
+                src="./assets/imgs/ideal/Imagem colada.png"
+                alt="Treino Funcional MAHA PLAY"
+                class="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gray-800/30 p-6 rounded-xl backdrop-blur-sm">
+          <h4 class="text-xl font-semibold mb-4 silver-gradient glow-text">
+            Por que o Treino Funcional está bombando?
+          </h4>
+          <div class="grid md:grid-cols-3 gap-6">
+            <div class="bg-gray-800/40 p-4 rounded-lg">
+              <div class="text-purple-400 text-2xl mb-2">
+                <i class="fas fa-bolt"></i>
+              </div>
+              <h5 class="font-semibold mb-2">Resultados Rápidos</h5>
+              <p class="text-gray-300 text-sm">
+                Queima de gordura e ganho de massa muscular em tempo recorde.
+              </p>
+            </div>
+            <div class="bg-gray-800/40 p-4 rounded-lg">
+              <div class="text-purple-400 text-2xl mb-2">
+                <i class="fas fa-users"></i>
+              </div>
+              <h5 class="font-semibold mb-2">Comunidade Premium</h5>
+              <p class="text-gray-300 text-sm">
+                O encontro perfeito de lifestyle, network e fitness.
+              </p>
+            </div>
+            <div class="bg-gray-800/40 p-4 rounded-lg">
+              <div class="text-purple-400 text-2xl mb-2">
+                <i class="fas fa-brain"></i>
+              </div>
+              <h5 class="font-semibold mb-2">Desafio Mental</h5>
+              <p class="text-gray-300 text-sm">
+                Treinos que superam limites e transformam mindset.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Adicionar gatilho de urgência -->
+        <div class="flex items-center justify-center mt-6">
+          <p class="text-center text-lg">
+            <span class="persuasive-text"
+              >Transforme seu corpo e sua mente</span
+            >
+            <span class="urgency-badge">Vagas Limitadas</span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Yoga Section -->
+    <section id="yoga" class="py-20 bg-gray-900 relative overflow-hidden">
+      <div class="section-highlight yoga"></div>
+      <div class="container mx-auto px-6">
+        <div class="flex items-center justify-center mb-6">
+          <span class="badge badge-yoga">Bem-estar</span>
+          <span class="badge badge-yoga">Corpo & Mente</span>
+        </div>
+        <h2
+          class="text-3xl md:text-4xl font-bold mb-12 glitch text-center"
+          data-text="Yoga"
+        >
+          Yoga
+        </h2>
+        <div class="highlight-yoga p-8 rounded-2xl mb-8">
+          <div class="grid md:grid-cols-2 gap-12 items-center">
+            <div class="order-2 md:order-1 space-y-6 fade-in">
+              <h3 class="text-2xl font-semibold silver-gradient glow-text">
+                Grade de Aulas - Ibirapuera
+              </h3>
+              <p class="text-lg mb-4">
+                Conecte corpo e mente através das práticas milenares do yoga,
+                adaptadas para o ritmo moderno. Encontre equilíbrio,
+                flexibilidade e força interior em um ambiente exclusivo.
+              </p>
+              <ul class="space-y-3">
+                <li class="flex items-center">
+                  <span class="neon-dot yoga mr-3"></span>
+                  <span>Segunda-feira: 7h00</span>
+                </li>
+                <li class="flex items-center">
+                  <span class="neon-dot yoga mr-3"></span>
+                  <span>Quarta-feira: 7h00</span>
+                </li>
+                <li class="flex items-center">
+                  <span class="neon-dot yoga mr-3"></span>
+                  <span>Sábado: 9h00</span>
+                </li>
+              </ul>
+
+              <!-- Planos e Preços do Yoga -->
+              <div
+                class="mt-6 bg-gray-800/50 p-5 rounded-lg border-l-4 border-teal-500"
+              >
+                <h4 class="text-xl font-semibold mb-3 text-white">
+                  Planos Disponíveis
+                </h4>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
+                  <div class="bg-gray-800/70 p-3 rounded-lg text-center">
+                    <p class="text-sm text-gray-400">
+                      1x semana ou 4 aulas/mês
+                    </p>
+                    <p class="text-base font-semibold text-teal-400">
+                      Plano Básico
+                    </p>
+                  </div>
+                  <div class="bg-gray-800/70 p-3 rounded-lg text-center">
+                    <p class="text-sm text-gray-400">
+                      2x semana ou 8 aulas/mês
+                    </p>
+                    <p class="text-base font-semibold text-teal-400">
+                      Plano Regular
+                    </p>
+                  </div>
+                  <div class="bg-gray-800/70 p-3 rounded-lg text-center">
+                    <p class="text-sm text-gray-400">
+                      3x semana ou 12 aulas/mês
+                    </p>
+                    <p class="text-base font-semibold text-teal-400">
+                      Plano Premium
+                    </p>
+                  </div>
+                </div>
+                <div class="bg-gray-800/70 p-3 rounded-lg text-center mb-4">
+                  <p class="text-sm text-gray-400">Aula experimental</p>
+                  <p class="text-base font-semibold text-teal-400">
+                    Experimente nossa metodologia
+                  </p>
+                </div>
+                <p class="text-sm text-gray-300 mb-4">
+                  <i class="fas fa-info-circle text-teal-400 mr-2"></i>
+                  Conheça todos os detalhes e benefícios de cada plano na página
+                  de assinatura.
+                </p>
+                <div class="text-center">
+                  <a
+                    href="./checkout-novo.html?modality=yoga"
+                    class="neon-button yoga px-6 py-3 rounded-full"
+                  >
+                    Ver detalhes e valores
+                    <i class="fas fa-arrow-right ml-2"></i>
+                  </a>
+                </div>
+              </div>
+
+              <a
+                href="./checkout-novo.html?modality=yoga"
+                class="neon-button yoga inline-block px-6 py-3 rounded-full mt-6"
+              >
+                Agendar experimental <i class="fas fa-arrow-right ml-2"></i>
+              </a>
+            </div>
+            <div class="order-1 md:order-2 glow-image fade-in">
+              <img
+                src="./assets/imgs/ideal/Imagem colada (2).png"
+                alt="Yoga MAHA PLAY"
+                class="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Professor de Yoga Card -->
+        <div
+          class="professor-card bg-gray-800/30 p-6 rounded-xl backdrop-blur-sm"
+        >
+          <h4 class="text-xl font-semibold mb-6 silver-gradient text-center">
+            - Professor - Yoga -
+          </h4>
+          <div class="flex flex-col md:flex-row items-center gap-6">
+            <a
+              href="https://www.instagram.com/rbaldin/"
+              target="_blank"
+              class="professor-image w-40 h-40 flex-shrink-0"
+            >
+              <img
+                src="./assets/imgs/professores/professor-yoga.png"
+                alt="Ricardo Baldin"
+                class="w-full h-full object-cover"
+              />
+              <div class="instagram-icon">
+                <i class="fab fa-instagram text-2xl mb-2"></i>
+                <span>@rbaldin</span>
+              </div>
+            </a>
+            <div>
+              <div
+                class="flex items-center mb-2 justify-center md:justify-start"
+              >
+                <h5 class="text-2xl font-semibold">Ricardo Baldin</h5>
+                <a
+                  href="https://www.instagram.com/rbaldin/"
+                  target="_blank"
+                  class="text-teal-400 ml-3 flex items-center"
+                >
+                  <i class="fab fa-instagram mr-1"></i> @rbaldin
+                  <i class="fas fa-badge-check ml-1 text-blue-400"></i>
+                </a>
+              </div>
+              <p class="text-gray-300 mb-4 text-center md:text-left">
+                "Nenhum de nós é melhor que todos nós juntos 🌀"
+              </p>
+              <p class="text-gray-400 mb-4 text-center md:text-left">
+                Instrutor certificado em diversas modalidades de yoga, Ricardo
+                combina técnicas tradicionais com abordagens modernas para criar
+                uma experiência única e transformadora. Com mais de 10 anos de
+                prática, ele encontra o equilíbrio perfeito entre desafio físico
+                e crescimento espiritual.
+              </p>
+              <div class="flex flex-wrap gap-2 justify-center md:justify-start">
+                <span class="text-xs bg-gray-700 py-1 px-3 rounded-full"
+                  >Hatha Yoga</span
+                >
+                <span class="text-xs bg-gray-700 py-1 px-3 rounded-full"
+                  >Vinyasa Flow</span
+                >
+                <span class="text-xs bg-gray-700 py-1 px-3 rounded-full"
+                  >Meditação</span
+                >
+                <span class="text-xs bg-gray-700 py-1 px-3 rounded-full"
+                  >Yoga Restaurativo</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Adicionar gatilho de urgência -->
+        <div class="flex items-center justify-center mt-6">
+          <p class="text-center text-lg">
+            <span class="persuasive-text"
+              >Reencontre seu equilíbrio interior</span
+            >
+            <span class="urgency-badge">Turmas Reduzidas</span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Corrida Section -->
+    <section id="corrida" class="py-20 bg-gray-900 relative overflow-hidden">
+      <div class="section-highlight running"></div>
+      <div class="container mx-auto px-6">
+        <div class="flex items-center justify-center mb-6">
+          <span class="badge badge-running">Performance</span>
+          <span class="badge badge-running">Personalizado</span>
+        </div>
+        <h2
+          class="text-3xl md:text-4xl font-bold mb-12 glitch text-center"
+          data-text="Assessoria de Corrida"
+        >
+          Assessoria de Corrida
+        </h2>
+        <div class="highlight-running p-8 rounded-2xl mb-8">
+          <div class="grid md:grid-cols-2 gap-12 items-center">
+            <div class="space-y-6 fade-in">
+              <h3 class="text-2xl font-semibold silver-gradient glow-text">
+                Mahaplay Runners
+              </h3>
+              <p class="text-lg mb-4">
+                Elevamos sua corrida para outro nível com um programa
+                personalizado que atende desde iniciantes até corredores
+                experientes, com foco em técnica, plano de treino e evolução
+                constante.
+              </p>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <div class="bg-gray-800/40 p-4 rounded-lg">
+                  <h5 class="font-semibold flex items-center mb-2">
+                    <i class="fas fa-calendar-alt text-orange-400 mr-2"></i>
+                    Treino Semanal
+                  </h5>
+                  <p class="text-gray-300 text-sm">
+                    Sexta-feira: 6h00 <br />
+                    <span class="text-xs text-gray-400">Parque Ibirapuera</span>
+                  </p>
+                </div>
+                <div class="bg-gray-800/40 p-4 rounded-lg">
+                  <h5 class="font-semibold flex items-center mb-2">
+                    <i class="fas fa-file-alt text-orange-400 mr-2"></i>
+                    Planilha Personalizada
+                  </h5>
+                  <p class="text-gray-300 text-sm">
+                    Plano mensal de treinos <br />
+                    <span class="text-xs text-gray-400"
+                      >Adaptado ao seu perfil</span
+                    >
+                  </p>
+                </div>
+                <div class="bg-gray-800/40 p-4 rounded-lg">
+                  <h5 class="font-semibold flex items-center mb-2">
+                    <i class="fas fa-comments text-orange-400 mr-2"></i>
+                    Suporte Contínuo
+                  </h5>
+                  <p class="text-gray-300 text-sm">
+                    WhatsApp em horário comercial <br />
+                    <span class="text-xs text-gray-400"
+                      >Feedback e ajustes quinzenais</span
+                    >
+                  </p>
+                </div>
+                <div class="bg-gray-800/40 p-4 rounded-lg">
+                  <h5 class="font-semibold flex items-center mb-2">
+                    <i class="fas fa-heartbeat text-orange-400 mr-2"></i>
+                    Avaliações
+                  </h5>
+                  <p class="text-gray-300 text-sm">
+                    Avaliação física mensal <br />
+                    <span class="text-xs text-gray-400"
+                      >Acompanhamento de evolução</span
+                    >
+                  </p>
+                </div>
+              </div>
+              <div
+                class="flex items-center justify-between bg-gray-800/70 p-4 rounded-lg"
+              >
+                <div>
+                  <p class="font-bold text-lg mb-1">Plano Personalizado</p>
+                  <p class="text-sm text-gray-300">
+                    Investimento em sua performance
+                  </p>
+                </div>
+                <div class="flex items-center gap-3">
+                  <a
+                    href="./checkout-novo.html?modality=running"
+                    class="neon-button running inline-block px-6 py-3 rounded-full"
+                  >
+                    Ver planos e valores <i class="fas fa-arrow-right ml-2"></i>
+                  </a>
+                </div>
+              </div>
+              <div class="text-center mt-4">
+                <a
+                  href="./checkout-novo.html?modality=running"
+                  class="text-orange-400 hover:text-orange-300 inline-block"
+                >
+                  <i class="fas fa-headset mr-1"></i> Fale com um assessor
+                </a>
+              </div>
+            </div>
+            <div class="glow-image fade-in">
+              <img
+                src="./assets/imgs/ideal/Imagem colada (3).png"
+                alt="Assessoria de Corrida MAHA PLAY"
+                class="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Adicionar gatilho de urgência -->
+        <div class="flex items-center justify-center mt-6">
+          <p class="text-center text-lg">
+            <span class="persuasive-text"
+              >Supere seus limites a cada passo</span
+            >
+            <span class="urgency-badge">Últimas Vagas</span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Eventos Section -->
+    <section id="eventos" class="py-20 bg-gray-900 relative overflow-hidden">
+      <div class="section-highlight eventos"></div>
+      <div class="container mx-auto px-6">
+        <div class="flex items-center justify-center mb-6">
+          <span class="badge badge-eventos">Exclusivo</span>
+          <span class="badge badge-eventos">Experiência</span>
+        </div>
+        <h2
+          class="text-3xl md:text-4xl font-bold mb-12 glitch text-center"
+          data-text="Eventos Especiais"
+        >
+          Eventos Especiais
+        </h2>
+
+        <div class="highlight-eventos p-8 rounded-2xl mb-8">
+          <div class="text-center mb-8">
+            <div
+              class="inline-block bg-blue-900/50 py-1 px-4 rounded-full text-blue-300 text-sm font-semibold mb-2"
+            >
+              <i class="far fa-calendar-alt mr-1"></i> Próximo Evento
+            </div>
+            <h3 class="text-3xl font-bold text-blue-300 glow-text">
+              AULÃO EM SANTOS
+            </h3>
+            <p class="text-lg text-blue-100 mt-2">
+              Uma experiência única à beira-mar com a comunidade MAHA PLAY
+            </p>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-10 items-center">
+            <div class="glow-image">
+              <img
+                src="./assets/imgs/foto-planos/plano-yoga.png"
+                alt="Aulão em Santos"
+                class="w-full h-80 object-cover rounded-lg"
+              />
+            </div>
+
+            <div class="space-y-6">
+              <div class="grid grid-cols-2 gap-4">
+                <div class="bg-blue-900/20 p-4 rounded-xl text-center">
+                  <i
+                    class="far fa-calendar-alt text-blue-400 text-2xl mb-2"
+                  ></i>
+                  <h4 class="font-semibold mb-1">Data</h4>
+                  <p>Sábado, 22 de Fevereiro</p>
+                </div>
+
+                <div class="bg-blue-900/20 p-4 rounded-xl text-center">
+                  <i class="far fa-clock text-blue-400 text-2xl mb-2"></i>
+                  <h4 class="font-semibold mb-1">Valor</h4>
+                  <p>R$50,00</p>
+                </div>
+
+                <div class="bg-blue-900/20 p-4 rounded-xl text-center">
+                  <i
+                    class="fas fa-map-marker-alt text-blue-400 text-2xl mb-2"
+                  ></i>
+                  <h4 class="font-semibold mb-1">Local</h4>
+                  <p>Santos - SP</p>
+                </div>
+
+                <div class="bg-blue-900/20 p-4 rounded-xl text-center">
+                  <i class="fas fa-info-circle text-blue-400 text-2xl mb-2"></i>
+                  <h4 class="font-semibold mb-1">O que levar</h4>
+                  <p>Colchonete e água</p>
+                </div>
+              </div>
+
+              <div class="bg-blue-900/30 p-4 rounded-xl">
+                <h4 class="font-semibold mb-2">Sobre o evento</h4>
+                <p class="text-gray-300">
+                  <ul class="list-disc ml-5 space-y-1">
+                    <li>Necessário inscrição prévia</li>
+                    <li>Alunos da Mahaplay SP podem participar fazendo check in via aplicativo</li>
+                    <li>Essencial levar colchonete e água</li>
+                  </ul>
+                </p>
+              </div>
+
+              <div class="text-center">
+                <a
+                  href="./checkout-novo.html?event=aulao-santos"
+                  class="neon-button eventos inline-block px-6 py-3 rounded-full"
+                >
+                  Quero participar <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Adicionar gatilho de urgência -->
+        <div class="flex items-center justify-center mt-6">
+          <p class="text-center text-lg">
+            <span class="persuasive-text"
+              >Experiências únicas e inesquecíveis</span
+            >
+            <span class="urgency-badge">Aguardem a próxima!</span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Nova Seção de Produtos -->
+    <section id="produtos" class="py-20 bg-gray-900 relative overflow-hidden">
+      <div class="section-highlight eventos"></div>
+      <div class="container mx-auto px-6">
+        <div class="flex items-center justify-center mb-6">
+          <span class="badge badge-eventos">Premium</span>
+          <span class="badge badge-eventos">Exclusivo</span>
+        </div>
+        <h2
+          class="text-3xl md:text-4xl font-bold mb-4 glitch text-center"
+          data-text="Produtos MAHA PLAY"
+        >
+          Produtos MAHA PLAY
+        </h2>
+        <p class="text-center text-gray-300 mb-12 max-w-3xl mx-auto">
+          Eleve sua experiência com nossos produtos exclusivos, desenvolvidos
+          para potencializar seu desempenho e destacar seu estilo único.
+        </p>
+
+        <div class="grid md:grid-cols-3 gap-8">
+          <!-- Produto 1 -->
+          <div class="product-card fade-in">
+            <div class="product-image">
+              <img
+                src="./assets/imgs/produtos/produto.png"
+                alt="MAHA PLAY Kit Funcional"
+              />
+              <div class="product-badge">Mais Vendido</div>
+            </div>
+            <div class="product-content">
+              <h3 class="text-xl font-bold silver-gradient">
+                Kit Treino Funcional
+              </h3>
+              <p class="text-gray-300 mt-2">
+                Kit completo com elásticos, corda e tapete para potencializar
+                seus treinos em qualquer lugar.
+              </p>
+              <div class="product-price">
+                <span class="text-blue-400 font-semibold"
+                  >Produto Exclusivo</span
+                >
+                <a
+                  href="./checkout-novo.html?product=kit-funcional"
+                  class="neon-button px-3 py-1 text-sm rounded-lg"
+                >
+                  Ver detalhes
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Produto 2 -->
+          <div class="product-card fade-in">
+            <div class="product-image">
+              <img
+                src="./assets/imgs/produtos/produto.png"
+                alt="MAHA PLAY Camiseta Performance"
+              />
+              <div class="product-badge">Novo</div>
+            </div>
+            <div class="product-content">
+              <h3 class="text-xl font-bold silver-gradient">
+                Camiseta Performance
+              </h3>
+              <p class="text-gray-300 mt-2">
+                Tecnologia DriFit de alta performance com design exclusivo MAHA
+                PLAY.
+              </p>
+              <div class="product-price">
+                <span class="text-blue-400 font-semibold"
+                  >Produto Exclusivo</span
+                >
+                <a
+                  href="./checkout-novo.html?product=camiseta"
+                  class="neon-button px-3 py-1 text-sm rounded-lg"
+                >
+                  Ver detalhes
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Produto 3 -->
+          <div class="product-card fade-in">
+            <div class="product-image">
+              <img
+                src="./assets/imgs/produtos/produto.png"
+                alt="MAHA PLAY Garrafa Térmica"
+              />
+            </div>
+            <div class="product-content">
+              <h3 class="text-xl font-bold silver-gradient">Garrafa Térmica</h3>
+              <p class="text-gray-300 mt-2">
+                Mantém sua bebida na temperatura ideal por até 24h, design
+                moderno e sustentável.
+              </p>
+              <div class="product-price">
+                <span class="text-blue-400 font-semibold"
+                  >Produto Exclusivo</span
+                >
+                <a
+                  href="./checkout-novo.html?product=garrafa"
+                  class="neon-button px-3 py-1 text-sm rounded-lg"
+                >
+                  Ver detalhes
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gatilho de urgência -->
+        <div class="flex items-center justify-center mt-10">
+          <p class="text-center text-lg">
+            <span class="persuasive-text"
+              >Produtos exclusivos para membros MAHA PLAY</span
+            >
+            <span class="urgency-badge">Estoque Limitado</span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Patrocinadores Section Melhorada -->
+    <section class="py-20 bg-gray-900">
+      <div class="container mx-auto px-6">
+        <h2
+          class="text-3xl md:text-4xl font-bold mb-4 glitch text-center"
+          data-text="Nossos Patrocinadores"
+        >
+          Nossos Patrocinadores
+        </h2>
+        <p class="text-center text-gray-300 mb-12 max-w-3xl mx-auto">
+          Marcas que acreditam no nosso trabalho e tornam possível levar a
+          experiência MAHA PLAY para o próximo nível.
+        </p>
+
+        <div class="flex justify-center">
+          <div class="sponsor-card max-w-2xl">
+            <div class="flex flex-col md:flex-row items-center gap-8">
+              <img
+                src="./assets/imgs/logos/logo-vesten.png"
+                alt="Vestem"
+                class="w-32 h-32 object-contain rounded-xl"
+              />
+              <div>
+                <h3 class="text-2xl font-bold silver-gradient mb-3">VESTEM</h3>
+                <p class="text-gray-300 mb-3">
+                  Parceiro oficial de vestuário da MAHA PLAY, a VESTEM traz
+                  design inovador e tecnologia de ponta para suas roupas
+                  esportivas.
+                </p>
+                <div class="flex items-center">
+                  <a
+                    href="https://www.instagram.com/vestem/"
+                    target="_blank"
+                    class="text-purple-400 flex items-center hover:text-purple-300 transition-colors"
+                  >
+                    <i class="fab fa-instagram mr-2 text-lg"></i> @vestem
+                  </a>
+                  <a
+                    href="https://vestem.com.br"
+                    target="_blank"
+                    class="ml-6 underline text-teal-400 hover:text-teal-300 transition-colors"
+                  >
+                    vestem.com.br
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção "Quem Está Por Trás" (Fundadores) -->
+    <section id="fundadores" class="py-20 bg-gray-900">
+      <div class="container mx-auto px-6">
+        <h2
+          class="text-3xl md:text-4xl font-bold mb-16 silver-gradient text-center"
+        >
+          Quem Está Por Trás
+        </h2>
+
+        <div class="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+          <!-- Fundador 1: Lucas Gil -->
+          <div class="founder-card">
+            <div class="flex flex-col items-center">
+              <div class="relative w-56 h-56 rounded-xl overflow-hidden mb-4">
+                <img
+                  src="./assets/imgs/FOUNDERS/lucas-gil.png"
+                  alt="Lucas Gil"
+                  class="w-full h-full object-cover"
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"
+                ></div>
+              </div>
+              <h3 class="text-2xl font-bold mb-1">Lucas Gil</h3>
+              <a
+                href="https://www.instagram.com/lucasgil.mbt/"
+                target="_blank"
+                class="text-purple-400 flex items-center mb-4"
+              >
+                <i class="fab fa-instagram mr-2"></i> @lucasgilsp
+              </a>
+              <p class="text-gray-300 text-center max-w-md">
+                Professor de yoga e empresário visionário que trouxe um novo
+                conceito de treinamento e comunidade para São Paulo.
+              </p>
+              <a
+                href="https://www.instagram.com/lucasgilsp/"
+                target="_blank"
+                class="mt-4 px-4 py-2 bg-purple-500/20 border border-purple-500/50 rounded-full text-sm hover:bg-purple-500/30 transition-all"
+              >
+                <i class="fab fa-instagram mr-1"></i> Seguir no Instagram
+              </a>
+            </div>
+          </div>
+
+          <!-- Fundador 2: Jonas Sulzbach -->
+          <div class="founder-card">
+            <div class="flex flex-col items-center">
+              <div class="relative w-56 h-56 rounded-xl overflow-hidden mb-4">
+                <img
+                  src="./assets/imgs/FOUNDERS/jonas.png"
+                  alt="Jonas Sulzbach"
+                  class="w-full h-full object-cover"
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"
+                ></div>
+              </div>
+              <h3 class="text-2xl font-bold mb-1">Jonas Sulzbach</h3>
+              <a
+                href="https://www.instagram.com/jonassulzbach/"
+                target="_blank"
+                class="text-teal-400 flex items-center mb-4"
+              >
+                <i class="fab fa-instagram mr-2"></i> @jonas.mbt
+              </a>
+              <p class="text-gray-300 text-center max-w-md">
+                Empresário, atleta e influenciador que traz sua paixão pelo
+                esporte e lifestyle saudável para a comunidade MAHA PLAY.
+              </p>
+              <a
+                href="https://www.instagram.com/jonas.mbt/"
+                target="_blank"
+                class="mt-4 px-4 py-2 bg-teal-500/20 border border-teal-500/50 rounded-full text-sm hover:bg-teal-500/30 transition-all"
+              >
+                <i class="fab fa-instagram mr-1"></i> Seguir no Instagram
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção Nosso Time -->
+    <section id="equipe" class="py-20 bg-gray-900 relative overflow-hidden">
+      <div class="section-highlight"></div>
+      <div class="container mx-auto px-6">
+        <h2
+          class="text-3xl md:text-4xl font-bold mb-16 silver-gradient text-center"
+        >
+          Nosso Time
+        </h2>
+
+        <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <!-- Professor 1: Ricardo Baldin (Yoga) -->
+          <div class="team-card bg-gray-800/30 p-6 rounded-xl backdrop-blur-sm">
+            <div class="flex flex-col items-center">
+              <div class="professor-image w-32 h-32 mb-4">
+                <img
+                  src="./assets/imgs/professores/professor-yoga.png"
+                  alt="Ricardo Baldin"
+                  class="w-full h-full object-cover rounded-full"
+                />
+                <div class="instagram-icon">
+                  <i class="fab fa-instagram text-xl"></i>
+                </div>
+              </div>
+              <h3 class="text-xl font-bold mb-1">Ricardo Baldin</h3>
+              <p class="text-teal-400 text-sm mb-3">Professor de Yoga</p>
+              <p class="text-gray-300 text-center text-sm">
+                "Nenhum de nós é melhor que todos nós juntos 🌀"
+              </p>
+              <a
+                href="https://www.instagram.com/rbaldin/"
+                target="_blank"
+                class="mt-4 px-4 py-2 bg-teal-500/20 border border-teal-500/50 rounded-full text-xs hover:bg-teal-500/30 transition-all"
+              >
+                <i class="fab fa-instagram mr-1"></i> @rbaldin
+              </a>
+            </div>
+          </div>
+
+          <!-- Professor 2: Funcional -->
+          <div class="team-card bg-gray-800/30 p-6 rounded-xl backdrop-blur-sm">
+            <div class="flex flex-col items-center">
+              <div class="professor-image w-32 h-32 mb-4">
+                <img
+                  src="./assets/imgs/professores/professor-funcional.png"
+                  alt="Rafael Santos"
+                  class="w-full h-full object-cover rounded-full"
+                />
+                <div class="instagram-icon">
+                  <i class="fab fa-instagram text-xl"></i>
+                </div>
+              </div>
+              <h3 class="text-xl font-bold mb-1">Rafael Santos</h3>
+              <p class="text-purple-400 text-sm mb-3">Professor de Funcional</p>
+              <p class="text-gray-300 text-center text-sm">
+                "Cada treino é uma oportunidade de superação"
+              </p>
+              <a
+                href="https://www.instagram.com/mahaplay/"
+                target="_blank"
+                class="mt-4 px-4 py-2 bg-purple-500/20 border border-purple-500/50 rounded-full text-xs hover:bg-purple-500/30 transition-all"
+              >
+                <i class="fab fa-instagram mr-1"></i> @maha.play
+              </a>
+            </div>
+          </div>
+
+          <!-- Professor 3: Corrida -->
+          <div class="team-card bg-gray-800/30 p-6 rounded-xl backdrop-blur-sm">
+            <div class="flex flex-col items-center">
+              <div class="professor-image w-32 h-32 mb-4">
+                <img
+                  src="./assets/imgs/professores/professor-corrida.png"
+                  alt="Carla Oliveira"
+                  class="w-full h-full object-cover rounded-full"
+                />
+                <div class="instagram-icon">
+                  <i class="fab fa-instagram text-xl"></i>
+                </div>
+              </div>
+              <h3 class="text-xl font-bold mb-1">Carla Oliveira</h3>
+              <p class="text-orange-400 text-sm mb-3">Assessoria de Corrida</p>
+              <p class="text-gray-300 text-center text-sm">
+                "Corra pelos seus objetivos, não dos seus medos"
+              </p>
+              <a
+                href="https://www.instagram.com/mahaplay/"
+                target="_blank"
+                class="mt-4 px-4 py-2 bg-orange-500/20 border border-orange-500/50 rounded-full text-xs hover:bg-orange-500/30 transition-all"
+              >
+                <i class="fab fa-instagram mr-1"></i> @maha.play
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center mt-12">
+          <a
+            href="./checkout-novo.html"
+            class="neon-button px-6 py-3 rounded-full"
+          >
+            Conheça nossa metodologia <i class="fas fa-arrow-right ml-2"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção Dúvidas (FAQ) -->
+    <section id="duvidas" class="py-20 bg-gray-900 relative overflow-hidden">
+      <div class="section-highlight"></div>
+      <div class="container mx-auto px-6">
+        <h2
+          class="text-3xl md:text-4xl font-bold mb-12 silver-gradient text-center"
+        >
+          Dúvidas Frequentes
+        </h2>
+
+        <div class="max-w-3xl mx-auto space-y-6">
+          <!-- Pergunta 1 -->
+          <div
+            class="faq-item bg-gray-800/50 p-6 rounded-xl border border-gray-700/50"
+          >
+            <h3 class="text-xl font-semibold mb-3 flex items-center">
+              <i class="fas fa-question-circle text-purple-400 mr-3"></i>
+              Preciso ter experiência para iniciar nas aulas?
+            </h3>
+            <p class="text-gray-300">
+              Não! Nossas aulas são adaptadas para todos os níveis de
+              experiência. Os professores vão guiar você de acordo com seu nível
+              e ajudar a progredir no seu próprio ritmo. Iniciantes são sempre
+              bem-vindos.
+            </p>
+          </div>
+
+          <!-- Pergunta 2 -->
+          <div
+            class="faq-item bg-gray-800/50 p-6 rounded-xl border border-gray-700/50"
+          >
+            <h3 class="text-xl font-semibold mb-3 flex items-center">
+              <i class="fas fa-question-circle text-purple-400 mr-3"></i>
+              O que devo levar para as aulas?
+            </h3>
+            <p class="text-gray-300">
+              Para as aulas de funcional e yoga, recomendamos roupas
+              confortáveis, uma garrafa de água e uma toalha. Para yoga, um
+              tapete de yoga é ideal (mas temos alguns disponíveis para quem
+              está começando). Para corrida, tênis adequados para sua pisada são
+              essenciais.
+            </p>
+          </div>
+
+          <!-- Pergunta 3 -->
+          <div
+            class="faq-item bg-gray-800/50 p-6 rounded-xl border border-gray-700/50"
+          >
+            <h3 class="text-xl font-semibold mb-3 flex items-center">
+              <i class="fas fa-question-circle text-purple-400 mr-3"></i>
+              Como funciona a aula experimental?
+            </h3>
+            <p class="text-gray-300">
+              A aula experimental é uma ótima forma de conhecer nossa
+              metodologia e sentir a energia da comunidade MAHA PLAY. O valor da
+              aula experimental é de R$55,00 para Treino Funcional e R$45,00
+              para Yoga, e esse valor será abatido caso você decida aderir a
+              algum plano mensal. Você pode agendar em qualquer modalidade
+              clicando no botão "Agendar experimental" ou através do nosso
+              WhatsApp.
+            </p>
+          </div>
+
+          <!-- Pergunta 4 -->
+          <div
+            class="faq-item bg-gray-800/50 p-6 rounded-xl border border-gray-700/50"
+          >
+            <h3 class="text-xl font-semibold mb-3 flex items-center">
+              <i class="fas fa-question-circle text-purple-400 mr-3"></i>
+              Posso congelar meu plano em caso de viagem ou lesão?
+            </h3>
+            <p class="text-gray-300">
+              Sim! Você pode congelar seu plano por até 30 dias por ano, sem
+              custo adicional. Basta solicitar o congelamento com pelo menos 7
+              dias de antecedência através do WhatsApp ou diretamente com nosso
+              time.
+            </p>
+          </div>
+
+          <!-- Pergunta 5 -->
+          <div
+            class="faq-item bg-gray-800/50 p-6 rounded-xl border border-gray-700/50"
+          >
+            <h3 class="text-xl font-semibold mb-3 flex items-center">
+              <i class="fas fa-question-circle text-purple-400 mr-3"></i>
+              Como funciona o Maha Experience?
+            </h3>
+            <p class="text-gray-300">
+              O Maha Experience é nosso plano premium que dá acesso a todas as
+              modalidades (Funcional, Yoga e eventos exclusivos) além de
+              benefícios especiais como atendimento prioritário, descontos em
+              produtos parceiros e acesso a conteúdos digitais exclusivos. É a
+              experiência completa da comunidade MAHA PLAY.
+            </p>
+          </div>
+        </div>
+
+        <div class="text-center mt-12">
+          <p class="text-gray-400 mb-4">
+            Ainda tem dúvidas? Entre em contato conosco:
+          </p>
+          <a
+            href="https://wa.me/5511916641060"
+            target="_blank"
+            class="neon-button-outline px-6 py-3 rounded-full"
+          >
+            <i class="fab fa-whatsapp mr-2"></i> Fale Conosco
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-16 bg-gray-950 border-t border-gray-800">
+      <div class="container mx-auto px-6">
+        <div class="grid md:grid-cols-4 gap-12">
+          <div>
+            <img
+              src="./assets/imgs/logos/logo-mahaplay.png"
+              alt="MAHA PLAY Logo"
+              class="h-16 mb-6"
+            />
+            <p class="text-gray-400 mb-4">
+              Transforme seu lifestyle através do esporte com uma comunidade
+              exclusiva que respira superação e bem-estar.
+            </p>
+            <div class="flex space-x-4">
+              <a
+                href="https://www.instagram.com/maha.play/"
+                target="_blank"
+                class="text-gray-400 hover:text-white transition-colors"
+              >
+                <i class="fab fa-instagram text-xl"></i>
+              </a>
+              <a
+                href="https://wa.me/5511916641060"
+                target="_blank"
+                class="text-gray-400 hover:text-white transition-colors"
+              >
+                <i class="fab fa-whatsapp text-xl"></i>
+              </a>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold mb-6 silver-gradient">Modalidades</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="#treino-funcional"
+                  class="text-gray-400 hover:text-white transition-colors"
+                  >Treino Funcional</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#yoga"
+                  class="text-gray-400 hover:text-white transition-colors"
+                  >Yoga</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#corrida"
+                  class="text-gray-400 hover:text-white transition-colors"
+                  >Assessoria de Corrida</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#eventos"
+                  class="text-gray-400 hover:text-white transition-colors"
+                  >Eventos Especiais</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold mb-6 silver-gradient">
+              Redes Sociais
+            </h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="https://www.instagram.com/maha.play/"
+                  target="_blank"
+                  class="text-gray-400 hover:text-white transition-colors"
+                  >@maha.play</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://www.instagram.com/mahaplay.yoga/"
+                  target="_blank"
+                  class="text-gray-400 hover:text-white transition-colors"
+                  >@mahaplay.yoga</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://www.instagram.com/mahaplay.abc/"
+                  target="_blank"
+                  class="text-gray-400 hover:text-white transition-colors"
+                  >@mahaplay.abc</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://www.instagram.com/mahaplay.vilas/"
+                  target="_blank"
+                  class="text-gray-400 hover:text-white transition-colors"
+                  >@mahaplay.vilas</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://www.instagram.com/mahaplay.cg/"
+                  target="_blank"
+                  class="text-gray-400 hover:text-white transition-colors"
+                  >@mahaplay.cg</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold mb-6 silver-gradient">Contato</h3>
+            <ul class="space-y-3">
+              <li class="flex items-start">
+                <i class="fab fa-whatsapp text-gray-400 mt-1 mr-3"></i>
+                <span>(11) 91664-1060</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-map-marker-alt text-gray-400 mt-1 mr-3"></i>
+                <span>Parque Ibirapuera, São Paulo - SP</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div
+          class="mt-16 pt-8 border-t border-gray-800 text-center text-gray-500"
+        >
+          <p>&copy; 2023 MAHA PLAY. Todos os direitos reservados.</p>
+          <p class="mt-2">
+            Produzido por
+            <a
+              href="https://leapfrogtech.netlify.app/"
+              target="_blank"
+              class="silver-gradient"
+              >LeapFrogTech</a
+            >
+            @ Transformações digitais em tempo recorde
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="./js/main.js"></script>
+    <script>
+      // Scripts adicionais específicos do index podem ser adicionados aqui
+      document.addEventListener("DOMContentLoaded", function () {
+        console.log(
+          "Página carregada. Você pode clicar em qualquer elemento interativo."
+        );
+
+        // Garantir que o botão de admin funcione
+        var adminBtn = document.getElementById("adminAccessBtn");
+        var adminModal = document.getElementById("adminModal");
+        var menuToggleBtn = document.getElementById("menu-toggle");
+        var mobileMenu = document.getElementById("mobile-menu");
+        var closeMenuBtn = document.getElementById("close-menu");
+        var aulaExpBtn = document.getElementById("aula-experimental-btn");
+        var modalAulaExp = document.getElementById("modal-aula-experimental");
+        var closeModalAula = document.getElementById("close-modal-aula");
+
+        if (adminBtn && adminModal) {
+          adminBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            adminModal.classList.remove("hidden");
+            console.log("Botão de admin clicado");
+          });
+        }
+
+        // Configurar o modal de aula experimental
+        if (aulaExpBtn && modalAulaExp && closeModalAula) {
+          aulaExpBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+            // Redirecionar diretamente para a página de checkout
+            window.location.href = "./checkout-novo.html";
+          });
+
+          closeModalAula.addEventListener("click", function () {
+            modalAulaExp.classList.remove("flex");
+            modalAulaExp.classList.add("hidden");
+          });
+        }
+
+        // Configurar a animação do menu mobile
+        if (menuToggleBtn && mobileMenu && closeMenuBtn) {
+          // Definir índices para os itens do menu para animação escalonada
+          const menuItems = mobileMenu.querySelectorAll("li");
+          menuItems.forEach((item, index) => {
+            item.style.setProperty("--index", index);
+          });
+
+          menuToggleBtn.addEventListener("click", function () {
+            mobileMenu.classList.add("show");
+            document.body.style.overflow = "hidden"; // Impedir scroll
+          });
+
+          closeMenuBtn.addEventListener("click", function () {
+            mobileMenu.classList.remove("show");
+            document.body.style.overflow = ""; // Restaurar scroll
+          });
+
+          // Fechar menu ao clicar em um link
+          menuItems.forEach((item) => {
+            const link = item.querySelector("a");
+            if (link) {
+              link.addEventListener("click", function () {
+                mobileMenu.classList.remove("show");
+                document.body.style.overflow = "";
+              });
+            }
+          });
+        }
+      });
+    </script>
+  </body>
+</html>
